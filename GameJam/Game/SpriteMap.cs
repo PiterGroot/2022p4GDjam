@@ -11,7 +11,8 @@ namespace GameJam.Game
 
         internal SpriteMap()
         {
-
+            //selecteer meest links boven pixel
+            //311 461
             tileMap.Add('#', new Rectangle(45, 75, 16, 16));
             tileMap.Add('.', new Rectangle(23, 75, 16, 16));
             tileMap.Add('D', new Rectangle(2, 75, 16, 16));
