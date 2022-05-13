@@ -5,6 +5,8 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using System.Media;
+using System.IO;
 
 namespace GameJam
 {
@@ -64,8 +66,7 @@ namespace GameJam
 
         private void RenderForm_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.W)
-            {
+            if (e.KeyCode == Keys.W) { 
                 MovePlayer(0, -1);
             }
             else if (e.KeyCode == Keys.S)
@@ -91,7 +92,7 @@ namespace GameJam
             }
             else if (e.KeyCode == Keys.Left) {
                 MovePlayer1(-1, 0);
-            }
+            }   
         }
 
         private void MovePlayer(int x, int y)
