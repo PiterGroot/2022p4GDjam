@@ -39,6 +39,7 @@ namespace GameJam.Game
             Graphics g = InitGraphics(e);
             RenderRoom(g);
             RenderObject(g, context.player);
+            RenderObject(g, context.player1);
         }
 
         private void RenderRoom(Graphics g)

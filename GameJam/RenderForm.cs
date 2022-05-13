@@ -27,6 +27,7 @@ namespace GameJam
             KeyDown += RenderForm_KeyDown;
             FormClosing += Form1_FormClosing;
             Load += RenderForm_Load;
+
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -45,9 +46,13 @@ namespace GameJam
             gc.player = new RenderObject()
             {
                 frames = gc.spriteMap.GetPlayerFrames(),
-                rectangle = new Rectangle(2 * gc.tileSize, 2 * gc.tileSize, gc.tileSize, gc.tileSize),
+                rectangle = new Rectangle(16, 16, gc.tileSize, gc.tileSize),
             };
 
+            gc.player1 = new RenderObject() {
+                frames = gc.spriteMap.GetPlayerFrames(),
+                rectangle = new Rectangle(32, 16, gc.tileSize, gc.tileSize),
+            };
 
             ClientSize =
              new Size(
@@ -74,6 +79,18 @@ namespace GameJam
             else if (e.KeyCode == Keys.D)
             {
                 MovePlayer(1, 0);
+            }
+            else if (e.KeyCode == Keys.Up) {
+                MovePlayer1(0, -1);
+            }
+            else if (e.KeyCode == Keys.Right) {
+                MovePlayer1(1, 0);
+            }
+            else if (e.KeyCode == Keys.Down) {
+                MovePlayer1(0, 1);
+            }
+            else if (e.KeyCode == Keys.Left) {
+                MovePlayer1(-1, 0);
             }
         }
 
@@ -103,6 +120,31 @@ namespace GameJam
 
                 else if (next.graphic != '#')
                 {
+                    player.rectangle.X = newx;
+                    player.rectangle.Y = newy;
+                }
+            }
+        }
+        private void MovePlayer1(int x, int y) {
+            RenderObject player = gc.player1;
+            float newx = player.rectangle.X + (x * gc.tileSize);
+            float newy = player.rectangle.Y + (y * gc.tileSize);
+
+            Tile next = gc.room.tiles.SelectMany(ty => ty.Where(tx => tx.rectangle.Contains((int)newx, (int)newy))).FirstOrDefault();
+
+            if (next != null) {
+                if (next.graphic == 'D') {
+                    gc.room = levelLoader.GetRoom(gc.room.roomx + x, gc.room.roomy + y);
+
+                    if (y != 0) {
+                        player.rectangle.Y += -y * ((gc.room.tiles.Length - 2) * gc.tileSize);
+                    }
+                    else {
+                        player.rectangle.X += -x * ((gc.room.tiles[0].Length - 2) * gc.tileSize);
+                    }
+                }
+
+                else if (next.graphic != '#') {
                     player.rectangle.X = newx;
                     player.rectangle.Y = newy;
                 }
