@@ -1,4 +1,4 @@
-# gamejam
+# gamejam BOMBERMAN
 
 Simple base template for students to try some game development with
 
