@@ -60,7 +60,7 @@ namespace GameJam
                 rectangle = new Rectangle(32, 16, gc.tileSize, gc.tileSize),
             };
 
-            Console.WriteLine(SpriteMap.tileMap['!']);
+            Debug.WriteLine(SpriteMap.tileMap['!']);
             //singleFrame[0] = gc.spriteMap.GetSprite('!');
 
             ClientSize =
@@ -105,10 +105,16 @@ namespace GameJam
             }   
 
             else if (e.KeyCode == Keys.F) {
-                float newx = gc.player.rectangle.X;
-                float newy = gc.player.rectangle.Y;
-                Tile currentTile = gc.room.tiles.SelectMany(ty => ty.Where(tx => tx.rectangle.Contains((int)newx, (int)newy))).FirstOrDefault();
-                currentTile.sprite = gc.spriteMap.GetSprite('!');
+                RenderObject newBomb = new RenderObject();
+
+                newBomb = new RenderObject() {
+                    frames = gc.spriteMap.GetBombFrames(),
+                    rectangle = new Rectangle((int)gc.player.rectangle.X, (int)gc.player.rectangle.Y, gc.tileSize, gc.tileSize),
+                };
+                gc.bombs.Add(newBomb);
+
+                //Tile currentTile = gc.room.tiles.SelectMany(ty => ty.Where(tx => tx.rectangle.Contains((int)newx, (int)newy))).FirstOrDefault();
+                //currentTile.sprite = gc.spriteMap.GetSprite('!');
             }
         }
 

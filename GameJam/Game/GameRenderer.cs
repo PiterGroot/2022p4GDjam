@@ -38,6 +38,9 @@ namespace GameJam.Game
 
             Graphics g = InitGraphics(e);
             RenderRoom(g);
+            foreach (RenderObject bomb in context.bombs) {
+                RenderObject(g, bomb);
+            }
             RenderObject(g, context.player);
             RenderObject(g, context.player1);
         }
