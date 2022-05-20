@@ -6,8 +6,9 @@ namespace GameJam.Game
 {
     internal class SpriteMap
     {
-        private readonly Dictionary<char, Rectangle> tileMap = new Dictionary<char, Rectangle>();
+        public static Dictionary<char, Rectangle> tileMap = new Dictionary<char, Rectangle>();
         private readonly Rectangle[] playerAnimation;
+        private readonly Rectangle newTile;
 
         internal SpriteMap()
         {
@@ -30,10 +31,12 @@ namespace GameJam.Game
         {
             return tileMap;
         }
-
         internal Rectangle[] GetPlayerFrames()
         {
             return playerAnimation;
+        }
+        internal Rectangle GetSprite(char tile) {
+            return tileMap[tile];
         }
     }
 

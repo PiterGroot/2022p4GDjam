@@ -7,14 +7,18 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Media;
 using System.IO;
+using System.Collections.Generic;
+using MathNet;
 
 namespace GameJam
 {
 
     public partial class RenderForm : Form
     {
-
-
+        //.char tile = ".";
+        private float playerX;
+        private float playerY;
+        private Rectangle[] singleFrame;
         private LevelLoader levelLoader;
         private float frametime;
         private GameRenderer renderer;
@@ -56,6 +60,9 @@ namespace GameJam
                 rectangle = new Rectangle(32, 16, gc.tileSize, gc.tileSize),
             };
 
+            Console.WriteLine(SpriteMap.tileMap['!']);
+            //singleFrame[0] = gc.spriteMap.GetSprite('!');
+
             ClientSize =
              new Size(
 
@@ -66,6 +73,7 @@ namespace GameJam
 
         private void RenderForm_KeyDown(object sender, KeyEventArgs e)
         {
+            //first player controls
             if (e.KeyCode == Keys.W) { 
                 MovePlayer(0, -1);
             }
@@ -81,6 +89,8 @@ namespace GameJam
             {
                 MovePlayer(1, 0);
             }
+
+            //second player controls
             else if (e.KeyCode == Keys.Up) {
                 MovePlayer1(0, -1);
             }
@@ -93,6 +103,13 @@ namespace GameJam
             else if (e.KeyCode == Keys.Left) {
                 MovePlayer1(-1, 0);
             }   
+
+            else if (e.KeyCode == Keys.F) {
+                float newx = gc.player.rectangle.X;
+                float newy = gc.player.rectangle.Y;
+                Tile currentTile = gc.room.tiles.SelectMany(ty => ty.Where(tx => tx.rectangle.Contains((int)newx, (int)newy))).FirstOrDefault();
+                currentTile.sprite = gc.spriteMap.GetSprite('!');
+            }
         }
 
         private void MovePlayer(int x, int y)
@@ -102,9 +119,10 @@ namespace GameJam
             float newy = player.rectangle.Y + (y * gc.tileSize);
 
             Tile next = gc.room.tiles.SelectMany(ty => ty.Where(tx => tx.rectangle.Contains((int)newx, (int)newy))).FirstOrDefault();
-
+           // next.sprite = gc.spriteMap.GetSprite('!');
             if (next != null)
             {
+                
                 if (next.graphic == 'D')
                 {
                     gc.room = levelLoader.GetRoom(gc.room.roomx + x, gc.room.roomy + y);
@@ -123,7 +141,10 @@ namespace GameJam
                 {
                     player.rectangle.X = newx;
                     player.rectangle.Y = newy;
+                    playerX = newx;
+                    playerY = newy;
                 }
+
             }
         }
         private void MovePlayer1(int x, int y) {
