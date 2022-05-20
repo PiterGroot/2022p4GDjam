@@ -9,8 +9,10 @@ namespace GameJam.Game
         public static Dictionary<char, Rectangle> tileMap = new Dictionary<char, Rectangle>();
         private readonly Rectangle[] playerAnimation;
         private readonly Rectangle[] bombAnimation;
-        private readonly Rectangle newTile;
 
+        //to change current tile:
+        //Tile currentTile = gc.room.tiles.SelectMany(ty => ty.Where(tx => tx.rectangle.Contains((int)newx, (int)newy))).FirstOrDefault();
+        //currentTile.sprite = gc.spriteMap.GetSprite('!');
         internal SpriteMap()
         {
             //selecteer meest links boven pixel

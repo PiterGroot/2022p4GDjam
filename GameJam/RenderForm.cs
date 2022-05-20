@@ -16,9 +16,9 @@ namespace GameJam
     public partial class RenderForm : Form
     {
         //.char tile = ".";
+        private Vector2 bombPosition;
         private float playerX;
         private float playerY;
-        private Rectangle[] singleFrame;
         private LevelLoader levelLoader;
         private float frametime;
         private GameRenderer renderer;
@@ -29,15 +29,14 @@ namespace GameJam
 
             DoubleBuffered = true;
             ResizeRedraw = true;
-
+            
             KeyDown += RenderForm_KeyDown;
             FormClosing += Form1_FormClosing;
             Load += RenderForm_Load;
 
         }
 
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
-        {
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e) {
             renderer.Dispose();
         }
         private void RenderForm_Load(object sender, EventArgs e)
@@ -107,14 +106,28 @@ namespace GameJam
             else if (e.KeyCode == Keys.F) {
                 RenderObject newBomb = new RenderObject();
 
+                Bomb bomb = new Bomb();
+
                 newBomb = new RenderObject() {
                     frames = gc.spriteMap.GetBombFrames(),
                     rectangle = new Rectangle((int)gc.player.rectangle.X, (int)gc.player.rectangle.Y, gc.tileSize, gc.tileSize),
                 };
                 gc.bombs.Add(newBomb);
+                bomb.StartTimer(3000, newBomb, gc, new Vector2(playerX, playerY));
+                bombPosition = bomb.bombPos;
+                bomb.onFinish += OnBombExplode;
+            }
+        }
 
-                //Tile currentTile = gc.room.tiles.SelectMany(ty => ty.Where(tx => tx.rectangle.Contains((int)newx, (int)newy))).FirstOrDefault();
-                //currentTile.sprite = gc.spriteMap.GetSprite('!');
+        private void OnBombExplode() {
+            Console.WriteLine("CHECKING BOMB");
+            Vector2 bombPos = bombPosition;
+            new Vector2(playerX, playerY);
+            float bombRange = 32;
+            if(playerX >= bombPos.x - bombRange && playerX <= bombPos.x + bombRange) {
+                if(playerY >= bombPos.y - bombRange && playerY <= bombPos.y + bombRange) {
+                    Debug.WriteLine("BOMB DEATH");
+                }
             }
         }
 
@@ -125,7 +138,7 @@ namespace GameJam
             float newy = player.rectangle.Y + (y * gc.tileSize);
 
             Tile next = gc.room.tiles.SelectMany(ty => ty.Where(tx => tx.rectangle.Contains((int)newx, (int)newy))).FirstOrDefault();
-           // next.sprite = gc.spriteMap.GetSprite('!');
+          
             if (next != null)
             {
                 
