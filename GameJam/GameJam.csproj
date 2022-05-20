@@ -110,6 +110,8 @@
     <Content Include="leveldata\room.1.0.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="SoundFX\bomb_place.wav" />
+    <None Include="SoundFX\error.wav" />
     <Content Include="sprites.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

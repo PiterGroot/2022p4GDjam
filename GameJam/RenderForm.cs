@@ -22,6 +22,7 @@ namespace GameJam
         private LevelLoader levelLoader;
         private float frametime;
         private GameRenderer renderer;
+        SoundPlayer soundPlayer = new SoundPlayer(Properties.Resources.bomb_place);
         private readonly GameContext gc = new GameContext();
         public RenderForm()
         {
@@ -104,6 +105,7 @@ namespace GameJam
             }   
 
             else if (e.KeyCode == Keys.F) {
+                soundPlayer.Play();
                 RenderObject newBomb = new RenderObject();
 
                 Bomb bomb = new Bomb();

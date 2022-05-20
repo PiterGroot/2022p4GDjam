@@ -59,5 +59,23 @@ namespace GameJam.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream bomb_place {
+            get {
+                return ResourceManager.GetStream("bomb_place", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream error {
+            get {
+                return ResourceManager.GetStream("error", resourceCulture);
+            }
+        }
     }
 }
