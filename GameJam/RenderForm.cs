@@ -58,7 +58,7 @@ namespace GameJam
                 rectangle = new Rectangle(32, 16, gc.tileSize, gc.tileSize),
             };
 
-            Debug.WriteLine(SpriteMap.tileMap['!']);
+            //Debug.WriteLine(SpriteMap.tileMap['!']);
             //singleFrame[0] = gc.spriteMap.GetSprite('!');
 
             ClientSize =
@@ -104,7 +104,7 @@ namespace GameJam
 
             else if (e.KeyCode == Keys.Enter) {
 
-                new Bomb(gc, 3000, new Vector2(playerX, playerY));
+                new Bomb(gc, 2500, new Vector2(playerX, playerY));
             }
         }
 

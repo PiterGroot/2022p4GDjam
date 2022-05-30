@@ -6,7 +6,7 @@ namespace GameJam.Game
 {
     internal class SpriteMap
     {
-        public static Dictionary<char, Rectangle> tileMap = new Dictionary<char, Rectangle>();
+        private Dictionary<char, Rectangle> tileMap = new Dictionary<char, Rectangle>();
         private readonly Rectangle[] playerAnimation;
         private readonly Rectangle[] bombAnimation;
 
