@@ -16,15 +16,30 @@ namespace GameJam
 {
     class Bomb
     {
+        SoundPlayer soundPlayer = new SoundPlayer(Properties.Resources.bomb_place);
         private GameContext gc;
         private RenderObject bombObj;
         public Vector2 bombPos;
-        public Action onFinish;
+        public Vector2 playerPos;
+        public Bomb(GameContext gc, int miliSeconds, Vector2 placePos)
+        {
+            soundPlayer.Play();
+            RenderObject newBomb = new RenderObject();
+            newBomb = new RenderObject()
+            {
+                frames = gc.spriteMap.GetBombFrames(),
+                rectangle = new Rectangle((int)gc.player.rectangle.X, (int)gc.player.rectangle.Y, gc.tileSize, gc.tileSize),
+            };
+            gc.bombs.Add(newBomb);
+            StartTimer(miliSeconds, newBomb, gc, placePos);
+        }
+
         public void StartTimer(int ms, RenderObject bomb, GameContext _gc, Vector2 _playerPos) {
             bombObj = bomb;
             gc = _gc;
             bombPos = _playerPos;
-    
+            playerPos = _playerPos;
+
             Timer MyTimer = new Timer();
             MyTimer.Interval = (ms);
             MyTimer.Tick += (sender, e) => BombTimer(MyTimer);
@@ -34,10 +49,13 @@ namespace GameJam
         
         private void BombTimer(Timer timer) {
             timer.Dispose();
-            onFinish.Invoke();
             gc.bombs.Remove(bombObj);
-            Debug.WriteLine(gc.bombs.Count);
+            OnBombExplode();
         }
-
+        private void OnBombExplode()
+        {
+            Console.WriteLine("BOMB EXPLODED");
+            // TODO: Make new bomb explosion detection
+        }
     }
 }

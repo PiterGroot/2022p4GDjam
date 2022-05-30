@@ -16,13 +16,11 @@ namespace GameJam
     public partial class RenderForm : Form
     {
         //.char tile = ".";
-        private Vector2 bombPosition;
         private float playerX;
         private float playerY;
         private LevelLoader levelLoader;
         private float frametime;
         private GameRenderer renderer;
-        SoundPlayer soundPlayer = new SoundPlayer(Properties.Resources.bomb_place);
         private readonly GameContext gc = new GameContext();
         public RenderForm()
         {
@@ -104,34 +102,13 @@ namespace GameJam
                 MovePlayer1(-1, 0);
             }   
 
-            else if (e.KeyCode == Keys.F) {
-                soundPlayer.Play();
-                RenderObject newBomb = new RenderObject();
+            else if (e.KeyCode == Keys.Enter) {
 
-                Bomb bomb = new Bomb();
-
-                newBomb = new RenderObject() {
-                    frames = gc.spriteMap.GetBombFrames(),
-                    rectangle = new Rectangle((int)gc.player.rectangle.X, (int)gc.player.rectangle.Y, gc.tileSize, gc.tileSize),
-                };
-                gc.bombs.Add(newBomb);
-                bomb.StartTimer(3000, newBomb, gc, new Vector2(playerX, playerY));
-                bombPosition = bomb.bombPos;
-                bomb.onFinish += OnBombExplode;
+                new Bomb(gc, 3000, new Vector2(playerX, playerY));
             }
         }
 
-        private void OnBombExplode() {
-            Console.WriteLine("CHECKING BOMB");
-            Vector2 bombPos = bombPosition;
-            new Vector2(playerX, playerY);
-            float bombRange = 32;
-            if(playerX >= bombPos.x - bombRange && playerX <= bombPos.x + bombRange) {
-                if(playerY >= bombPos.y - bombRange && playerY <= bombPos.y + bombRange) {
-                    Debug.WriteLine("BOMB DEATH");
-                }
-            }
-        }
+       
 
         private void MovePlayer(int x, int y)
         {
