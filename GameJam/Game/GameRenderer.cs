@@ -37,21 +37,45 @@ namespace GameJam.Game
             this.frametime = frametime;
 
             Graphics g = InitGraphics(e);
-            RenderRoom(g);
-            foreach (RenderObject bomb in context.bombs) {
+            RenderFloor(g);
+            foreach (RenderObject explosions in context.explosionTiles)
+            {
+                RenderObject(g, explosions);
+            }
+            RenderWalls(g);
+            foreach (RenderObject bomb in context.bombs)
+            {
                 RenderObject(g, bomb);
             }
             RenderObject(g, context.player);
             RenderObject(g, context.player1);
+            RenderObject(g, context.p1Heart);
+            RenderObject(g, context.p2Heart);
         }
 
-        private void RenderRoom(Graphics g)
+        private void RenderFloor(Graphics g)
         {
             foreach (Tile[] row in context.room.tiles)
             {
                 foreach (Tile t in row)
                 {
-                    g.DrawImage(image, t.rectangle, t.sprite, GraphicsUnit.Pixel);
+                    if(t.graphic == '.')
+                    {
+                        g.DrawImage(image, t.rectangle, t.sprite, GraphicsUnit.Pixel);
+                    }
+                }
+            }
+        }
+        private void RenderWalls(Graphics g)
+        {
+            foreach (Tile[] row in context.room.tiles)
+            {
+                foreach (Tile t in row)
+                {
+                    if (t.graphic == '#')
+                    {
+                        g.DrawImage(image, t.rectangle, t.sprite, GraphicsUnit.Pixel);
+                    }
                 }
             }
         }

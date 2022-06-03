@@ -19,10 +19,29 @@ namespace GameJam.Game
             //66 75 = bom
             //23 75 = floor
             //45 75 = wall
+            //148 74 = full heart
+            //132 74 = empty heart
 
             tileMap.Add('#', new Rectangle(45, 75, 16, 16));
             tileMap.Add('.', new Rectangle(23, 75, 16, 16));
             tileMap.Add('!', new Rectangle(66, 75, 16, 16));
+            tileMap.Add('O', new Rectangle(148, 74, 15, 15));
+            tileMap.Add('0', new Rectangle(132, 74, 15, 15));
+
+
+            //explosion tiles
+            //                   ^
+            //                   I
+            //                <- x ->
+            //                   I
+            //                   V
+            tileMap.Add('^', new Rectangle(36, 94, 16, 16));
+            tileMap.Add('I', new Rectangle(36, 110, 16, 16));
+            tileMap.Add('>', new Rectangle(68, 126, 16, 16));
+            tileMap.Add('-', new Rectangle(52, 126, 16, 16));
+            tileMap.Add('V', new Rectangle(36, 158, 16, 16));
+            tileMap.Add('<', new Rectangle(4, 126, 16, 16));
+            tileMap.Add('x', new Rectangle(36, 126, 16, 16));
 
             playerAnimation = new Rectangle[]
                 {

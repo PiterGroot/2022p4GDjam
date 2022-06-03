@@ -15,9 +15,9 @@ namespace GameJam
 
     public partial class RenderForm : Form
     {
-        //.char tile = ".";
-        private float playerX;
-        private float playerY;
+        private Vector2 p1Pos;
+        private Vector2 p2Pos;
+
         private LevelLoader levelLoader;
         private float frametime;
         private GameRenderer renderer;
@@ -46,17 +46,10 @@ namespace GameJam
             renderer = new GameRenderer(gc);
 
             gc.room = levelLoader.GetRoom(0, 0);
+            InstantiateRenderObjects();
 
-            gc.player = new RenderObject()
-            {
-                frames = gc.spriteMap.GetPlayerFrames(),
-                rectangle = new Rectangle(16, 16, gc.tileSize, gc.tileSize),
-            };
-
-            gc.player1 = new RenderObject() {
-                frames = gc.spriteMap.GetPlayerFrames(),
-                rectangle = new Rectangle(32, 16, gc.tileSize, gc.tileSize),
-            };
+            //Tile currentTile = gc.room.tiles.SelectMany(ty => ty.Where(tx => tx.rectangle.Contains((int)32, (int)64))).FirstOrDefault();
+            //currentTile.sprite = gc.spriteMap.GetSprite('O');
 
             //Debug.WriteLine(SpriteMap.tileMap['!']);
             //singleFrame[0] = gc.spriteMap.GetSprite('!');
@@ -67,6 +60,33 @@ namespace GameJam
                 (gc.tileSize * gc.room.tiles[0].Length) * gc.scaleunit,
                 (gc.tileSize * gc.room.tiles.Length) * gc.scaleunit
                 );
+        }
+
+        private void InstantiateRenderObjects()
+        {
+            gc.player = new RenderObject()
+            {
+                frames = gc.spriteMap.GetPlayerFrames(),
+                rectangle = new Rectangle(16, 16, gc.tileSize, gc.tileSize),
+            };
+
+            gc.player1 = new RenderObject()
+            {
+                frames = gc.spriteMap.GetPlayerFrames(),
+                rectangle = new Rectangle(32, 16, gc.tileSize, gc.tileSize),
+            };
+
+            gc.p1Heart = new RenderObject()
+            {
+                frames = gc.GetSingeFrameArray('O'),
+                rectangle = new Rectangle(0, 0, gc.tileSize, gc.tileSize),
+            };
+            gc.p2Heart = new RenderObject()
+            {
+                frames = gc.GetSingeFrameArray('O'),
+                rectangle = new Rectangle(164, 0, gc.tileSize, gc.tileSize),
+            };
+
         }
 
         private void RenderForm_KeyDown(object sender, KeyEventArgs e)
@@ -87,6 +107,10 @@ namespace GameJam
             {
                 MovePlayer(1, 0);
             }
+            else if (e.KeyCode == Keys.Enter)
+            {
+                new Bomb(gc, 2500, p2Pos, true);
+            }
 
             //second player controls
             else if (e.KeyCode == Keys.Up) {
@@ -102,9 +126,8 @@ namespace GameJam
                 MovePlayer1(-1, 0);
             }   
 
-            else if (e.KeyCode == Keys.Enter) {
-
-                new Bomb(gc, 2500, new Vector2(playerX, playerY));
+            else if (e.KeyCode == Keys.Space) {
+                new Bomb(gc, 2500, p1Pos, false);
             }
         }
 
@@ -139,8 +162,7 @@ namespace GameJam
                 {
                     player.rectangle.X = newx;
                     player.rectangle.Y = newy;
-                    playerX = newx;
-                    playerY = newy;
+                    p2Pos = new Vector2(newx, newy);
                 }
 
             }
@@ -167,6 +189,8 @@ namespace GameJam
                 else if (next.graphic != '#') {
                     player.rectangle.X = newx;
                     player.rectangle.Y = newy;
+
+                    p1Pos = new Vector2(newx, newy);
                 }
             }
         }
