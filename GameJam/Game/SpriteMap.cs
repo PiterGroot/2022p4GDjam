@@ -8,6 +8,7 @@ namespace GameJam.Game
     {
         private Dictionary<char, Rectangle> tileMap = new Dictionary<char, Rectangle>();
         private readonly Rectangle[] playerAnimation;
+        private readonly Rectangle[] player1Animation;
         private readonly Rectangle[] bombAnimation;
 
         //to change current tile:
@@ -49,6 +50,13 @@ namespace GameJam.Game
                     new Rectangle(60, 9, 16, 16),
                     new Rectangle(77, 9, 16, 16)
                 };
+            player1Animation = new Rectangle[]
+             {
+                    new Rectangle(42, 27, 16, 16),
+                    new Rectangle(62, 27, 16, 16),
+                    new Rectangle(78, 28, 16, 16)
+               };
+
 
             bombAnimation = new Rectangle[] {
                 new Rectangle(66, 75, 16, 16),
@@ -64,6 +72,10 @@ namespace GameJam.Game
         internal Rectangle[] GetPlayerFrames()
         {
             return playerAnimation;
+        }
+        internal Rectangle[] GetPlayer1Frames()
+        {
+            return player1Animation;
         }
         internal Rectangle[] GetBombFrames() {
             return bombAnimation;

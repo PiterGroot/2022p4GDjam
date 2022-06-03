@@ -77,6 +77,7 @@ namespace GameJam
             Rectangle center = gc.GetCurrentTileRectangle(playerPos);
 
             //place core
+            if (playerPos == null) return;
             RenderObject coreExplosion = new RenderObject()
             {
                 frames = gc.GetSingeFrameArray('x'),

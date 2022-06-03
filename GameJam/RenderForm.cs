@@ -72,7 +72,7 @@ namespace GameJam
 
             gc.player1 = new RenderObject()
             {
-                frames = gc.spriteMap.GetPlayerFrames(),
+                frames = gc.spriteMap.GetPlayer1Frames(),
                 rectangle = new Rectangle(32, 16, gc.tileSize, gc.tileSize),
             };
 
@@ -107,7 +107,7 @@ namespace GameJam
             {
                 MovePlayer(1, 0);
             }
-            else if (e.KeyCode == Keys.Enter)
+            else if (e.KeyCode == Keys.Space)
             {
                 new Bomb(gc, 2500, p2Pos, true);
             }
@@ -126,7 +126,7 @@ namespace GameJam
                 MovePlayer1(-1, 0);
             }   
 
-            else if (e.KeyCode == Keys.Space) {
+            else if (e.KeyCode == Keys.Enter) {
                 new Bomb(gc, 2500, p1Pos, false);
             }
         }
