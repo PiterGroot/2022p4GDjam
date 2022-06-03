@@ -48,11 +48,8 @@ namespace GameJam
             gc.room = levelLoader.GetRoom(0, 0);
             InstantiateRenderObjects();
 
-            //Tile currentTile = gc.room.tiles.SelectMany(ty => ty.Where(tx => tx.rectangle.Contains((int)32, (int)64))).FirstOrDefault();
-            //currentTile.sprite = gc.spriteMap.GetSprite('O');
-
-            //Debug.WriteLine(SpriteMap.tileMap['!']);
-            //singleFrame[0] = gc.spriteMap.GetSprite('!');
+            p1Pos = new Vector2(32, 16);
+            p2Pos = new Vector2(16, 16);
 
             ClientSize =
              new Size(
@@ -131,7 +128,7 @@ namespace GameJam
             }
         }
 
-       
+
 
         private void MovePlayer(int x, int y)
         {
@@ -140,10 +137,10 @@ namespace GameJam
             float newy = player.rectangle.Y + (y * gc.tileSize);
 
             Tile next = gc.room.tiles.SelectMany(ty => ty.Where(tx => tx.rectangle.Contains((int)newx, (int)newy))).FirstOrDefault();
-          
+
             if (next != null)
             {
-                
+
                 if (next.graphic == 'D')
                 {
                     gc.room = levelLoader.GetRoom(gc.room.roomx + x, gc.room.roomy + y);
@@ -158,7 +155,7 @@ namespace GameJam
                     }
                 }
 
-                else if (next.graphic != '#')
+                else if (next.graphic != '#' && next.graphic != ',')
                 {
                     player.rectangle.X = newx;
                     player.rectangle.Y = newy;
@@ -186,7 +183,7 @@ namespace GameJam
                     }
                 }
 
-                else if (next.graphic != '#') {
+                else if (next.graphic != '#' && next.graphic != ',') {
                     player.rectangle.X = newx;
                     player.rectangle.Y = newy;
 

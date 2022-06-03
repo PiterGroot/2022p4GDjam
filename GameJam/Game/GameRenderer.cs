@@ -72,7 +72,7 @@ namespace GameJam.Game
             {
                 foreach (Tile t in row)
                 {
-                    if (t.graphic == '#')
+                    if (t.graphic == '#' || t.graphic == ',')
                     {
                         g.DrawImage(image, t.rectangle, t.sprite, GraphicsUnit.Pixel);
                     }

@@ -23,6 +23,7 @@ namespace GameJam.Game
             //148 74 = full heart
             //132 74 = empty heart
 
+            tileMap.Add(',', new Rectangle(4, 75, 16, 16));
             tileMap.Add('#', new Rectangle(45, 75, 16, 16));
             tileMap.Add('.', new Rectangle(23, 75, 16, 16));
             tileMap.Add('!', new Rectangle(66, 75, 16, 16));
