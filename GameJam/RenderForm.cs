@@ -28,7 +28,11 @@ namespace GameJam
 
             DoubleBuffered = true;
             ResizeRedraw = true;
-            
+
+            WindowState = FormWindowState.Normal;
+            FormBorderStyle = FormBorderStyle.None;
+            Bounds = Screen.PrimaryScreen.Bounds;
+
             KeyDown += RenderForm_KeyDown;
             FormClosing += Form1_FormClosing;
             Load += RenderForm_Load;
