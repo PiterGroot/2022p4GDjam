@@ -69,7 +69,6 @@ namespace GameJam
             Console.WriteLine("BOMB EXPLODED" + Properties.Resources.explosion);
 
             CreateExplosion();
-            
         }
 
         private void CreateExplosion()
@@ -171,7 +170,7 @@ namespace GameJam
         private void CheckTile(Vector2 pos)
         {
             Tile next = gc.room.tiles.SelectMany(ty => ty.Where(tx => tx.rectangle.Contains((int)pos.x, (int)pos.y))).FirstOrDefault();
-            Console.WriteLine(next);
+            if (next == null) return;
             if(next.graphic == ',')
             {
                 next.graphic = '.';

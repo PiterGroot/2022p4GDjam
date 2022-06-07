@@ -32,7 +32,6 @@ namespace GameJam
             KeyDown += RenderForm_KeyDown;
             FormClosing += Form1_FormClosing;
             Load += RenderForm_Load;
-
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e) {
@@ -47,20 +46,19 @@ namespace GameJam
 
             gc.room = levelLoader.GetRoom(0, 0);
             InstantiateRenderObjects();
-
-            p1Pos = new Vector2(32, 16);
-            p2Pos = new Vector2(16, 16);
-
             ClientSize =
-             new Size(
+                 new Size(
 
-                (gc.tileSize * gc.room.tiles[0].Length) * gc.scaleunit,
-                (gc.tileSize * gc.room.tiles.Length) * gc.scaleunit
-                );
+                    (gc.tileSize * gc.room.tiles[0].Length) * gc.scaleunit,
+                    (gc.tileSize * gc.room.tiles.Length) * gc.scaleunit
+                    );
         }
 
         private void InstantiateRenderObjects()
         {
+            p1Pos = new Vector2(32, 16);
+            p2Pos = new Vector2(16, 16);
+
             gc.player = new RenderObject()
             {
                 frames = gc.spriteMap.GetPlayerFrames(),
@@ -125,6 +123,15 @@ namespace GameJam
 
             else if (e.KeyCode == Keys.Enter) {
                 new Bomb(gc, 2500, p1Pos, false);
+            }
+
+            else if (e.KeyCode == Keys.Subtract)
+            {
+                gc.SetRenderScale(-1);
+            }
+            else if (e.KeyCode == Keys.Add)
+            {
+                gc.SetRenderScale(1);
             }
         }
 

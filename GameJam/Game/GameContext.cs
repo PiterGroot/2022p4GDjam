@@ -31,6 +31,18 @@
         {
             return new Rectangle((int)pos.x, (int)pos.y, tileSize, tileSize);
         }
+        internal void SetRenderScale(int amount)
+        {
+            scaleunit += amount;
+            if(scaleunit == 1)
+            {
+                scaleunit = 2;
+            }
+            else if (scaleunit == 10)
+            {
+                scaleunit = 9;
+            }
+        }
     }
 
 }
