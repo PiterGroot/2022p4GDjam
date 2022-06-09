@@ -109,6 +109,7 @@ namespace GameJam
             else if (e.KeyCode == Keys.Space)
             {
                 new Bomb(gc, 2500, p2Pos, true);
+                Console.WriteLine("BOMB placed at : " + p2Pos.x + " " + p2Pos.y);
             }
 
             //second player controls
@@ -151,9 +152,10 @@ namespace GameJam
             
             if (next != null)
             {
+                Console.WriteLine("Next tile: " + next.rectangle);
                 foreach (RenderObject renderObject in gc.bombs)
                 {
-                    if(next.rectangle.X == (int)renderObject.rectangle.X && next.rectangle.Y == (int)renderObject.rectangle.X)
+                    if(newx == (int)renderObject.rectangle.X && newy == (int)renderObject.rectangle.Y)
                     {
                         return;
                     }
