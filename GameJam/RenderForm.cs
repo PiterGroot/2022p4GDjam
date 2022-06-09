@@ -152,7 +152,6 @@ namespace GameJam
             
             if (next != null)
             {
-                Console.WriteLine("Next tile: " + next.rectangle);
                 foreach (RenderObject renderObject in gc.bombs)
                 {
                     if(newx == (int)renderObject.rectangle.X && newy == (int)renderObject.rectangle.Y)
@@ -162,6 +161,13 @@ namespace GameJam
                 }
                 if (next.graphic != '#' && next.graphic != ',')
                 {
+                    foreach (RenderObject renderObject in gc.explosionTiles)
+                    {
+                        if (newx == (int)renderObject.rectangle.X && newy == (int)renderObject.rectangle.Y)
+                        {
+                            Console.WriteLine("Player 1 is dead");
+                        }
+                    }
                     player.rectangle.X = newx;
                     player.rectangle.Y = newy;
                     p2Pos = new Vector2(newx, newy);
@@ -177,18 +183,21 @@ namespace GameJam
             Tile next = gc.room.tiles.SelectMany(ty => ty.Where(tx => tx.rectangle.Contains((int)newx, (int)newy))).FirstOrDefault();
 
             if (next != null) {
-                if (next.graphic == 'D') {
-                    gc.room = levelLoader.GetRoom(gc.room.roomx + x, gc.room.roomy + y);
-
-                    if (y != 0) {
-                        player.rectangle.Y += -y * ((gc.room.tiles.Length - 2) * gc.tileSize);
-                    }
-                    else {
-                        player.rectangle.X += -x * ((gc.room.tiles[0].Length - 2) * gc.tileSize);
+                foreach (RenderObject renderObject in gc.bombs)
+                {
+                    if (newx == (int)renderObject.rectangle.X && newy == (int)renderObject.rectangle.Y)
+                    {
+                        return;
                     }
                 }
-
-                else if (next.graphic != '#' && next.graphic != ',') {
+                if (next.graphic != '#' && next.graphic != ',') {
+                    foreach (RenderObject renderObject in gc.explosionTiles)
+                    {
+                        if (newx == (int)renderObject.rectangle.X && newy == (int)renderObject.rectangle.Y)
+                        {
+                            Console.WriteLine("Player 2 is dead");
+                        }
+                    }
                     player.rectangle.X = newx;
                     player.rectangle.Y = newy;
 

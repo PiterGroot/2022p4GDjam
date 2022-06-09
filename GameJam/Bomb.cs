@@ -172,7 +172,15 @@ namespace GameJam
         {
             Tile next = gc.room.tiles.SelectMany(ty => ty.Where(tx => tx.rectangle.Contains((int)pos.x, (int)pos.y))).FirstOrDefault();
             if (next == null) return;
-            if(next.graphic == ',')
+            if (next.rectangle.X == (int)gc.player.rectangle.X && next.rectangle.Y == (int)gc.player.rectangle.Y)
+            {
+                Console.WriteLine("Player 1 damage");
+            }
+            if (next.rectangle.X == (int)gc.player1.rectangle.X && next.rectangle.Y == (int)gc.player1.rectangle.Y)
+            {
+                Console.WriteLine("Player 2 damage");
+            }
+            if (next.graphic == ',')
             {
                 next.graphic = '.';
                 next.sprite = gc.spriteMap.GetSprite('.');
