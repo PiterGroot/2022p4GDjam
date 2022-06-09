@@ -83,13 +83,13 @@ namespace GameJam
                 rectangle = gc.GetCurrentTileRectangle(playerPos),
             };
             //go up
-            CheckTile(new Vector2(center.X, center.Y - gc.tileSize));
+            SetTile(new Vector2(center.X, center.Y - gc.tileSize));
             RenderObject upExplosion = new RenderObject()
             {
                 frames = gc.GetSingeFrameArray('I'),
                 rectangle = new Rectangle(center.X, center.Y - gc.tileSize, gc.tileSize, gc.tileSize),
             };
-            CheckTile(new Vector2(center.X, center.Y - gc.tileSize * 2));
+            SetTile(new Vector2(center.X, center.Y - gc.tileSize * 2));
             RenderObject upRoofExplosion = new RenderObject()
             {
                 frames = gc.GetSingeFrameArray('^'),
@@ -97,14 +97,14 @@ namespace GameJam
             };
 
             //go right
-            CheckTile(new Vector2(center.X + gc.tileSize, center.Y));
+            SetTile(new Vector2(center.X + gc.tileSize, center.Y));
             RenderObject rightExplosion = new RenderObject()
             {
                 frames = gc.GetSingeFrameArray('-'),
                 rectangle = new Rectangle(center.X + gc.tileSize, center.Y, gc.tileSize, gc.tileSize),
             };
 
-            CheckTile(new Vector2(center.X + gc.tileSize * 2, center.Y));
+            SetTile(new Vector2(center.X + gc.tileSize * 2, center.Y));
             RenderObject rightRoofExplosion = new RenderObject()
             {
                 frames = gc.GetSingeFrameArray('>'),
@@ -112,14 +112,14 @@ namespace GameJam
             };
 
             //go down
-            CheckTile(new Vector2(center.X, center.Y + gc.tileSize));
+            SetTile(new Vector2(center.X, center.Y + gc.tileSize));
             RenderObject downExplosion = new RenderObject()
             {
                 frames = gc.GetSingeFrameArray('I'),
                 rectangle = new Rectangle(center.X, center.Y + gc.tileSize, gc.tileSize, gc.tileSize),
             };
 
-            CheckTile(new Vector2(center.X, center.Y + gc.tileSize * 2));
+            SetTile(new Vector2(center.X, center.Y + gc.tileSize * 2));
             RenderObject downRoofExplosion = new RenderObject()
             {
                 frames = gc.GetSingeFrameArray('V'),
@@ -127,14 +127,14 @@ namespace GameJam
             };
 
             //go left
-            CheckTile(new Vector2(center.X - gc.tileSize, center.Y));
+            SetTile(new Vector2(center.X - gc.tileSize, center.Y));
             RenderObject leftExplosion = new RenderObject()
             {
                 frames = gc.GetSingeFrameArray('-'),
                 rectangle = new Rectangle(center.X - gc.tileSize, center.Y, gc.tileSize, gc.tileSize),
             };
 
-            CheckTile(new Vector2(center.X - gc.tileSize * 2, center.Y));
+            SetTile(new Vector2(center.X - gc.tileSize * 2, center.Y));
             RenderObject leftRoofExplosion = new RenderObject()
             {
                 frames = gc.GetSingeFrameArray('<'),
@@ -167,7 +167,8 @@ namespace GameJam
             despawnTimer.Tick += (sender, e) => DespawnExplosion(despawnTimer, allTiles);
             despawnTimer.Start();
         }
-        private void CheckTile(Vector2 pos)
+
+        private void SetTile(Vector2 pos)
         {
             Tile next = gc.room.tiles.SelectMany(ty => ty.Where(tx => tx.rectangle.Contains((int)pos.x, (int)pos.y))).FirstOrDefault();
             if (next == null) return;

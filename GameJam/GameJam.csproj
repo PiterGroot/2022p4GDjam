@@ -84,6 +84,7 @@
   <ItemGroup>
     <Compile Include="AudioManager.cs" />
     <Compile Include="Bomb.cs" />
+    <Compile Include="Game\ExplosionDirection.cs" />
     <Compile Include="Game\SpriteMap.cs" />
     <Compile Include="Tools\FileLevelDataSource.cs" />
     <Compile Include="Game\GameContext.cs" />

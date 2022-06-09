@@ -60,7 +60,7 @@ namespace GameJam
 
         private void InstantiateRenderObjects()
         {
-            p1Pos = new Vector2(32, 16);
+            p1Pos = new Vector2(432, 224);
             p2Pos = new Vector2(16, 16);
 
             gc.player = new RenderObject()
@@ -72,7 +72,7 @@ namespace GameJam
             gc.player1 = new RenderObject()
             {
                 frames = gc.spriteMap.GetPlayer1Frames(),
-                rectangle = new Rectangle(32, 16, gc.tileSize, gc.tileSize),
+                rectangle = new Rectangle(432, 224, gc.tileSize, gc.tileSize),
             };
 
             gc.p1Heart = new RenderObject()
@@ -148,25 +148,17 @@ namespace GameJam
             float newy = player.rectangle.Y + (y * gc.tileSize);
 
             Tile next = gc.room.tiles.SelectMany(ty => ty.Where(tx => tx.rectangle.Contains((int)newx, (int)newy))).FirstOrDefault();
-
+            
             if (next != null)
             {
-
-                if (next.graphic == 'D')
+                foreach (RenderObject renderObject in gc.bombs)
                 {
-                    gc.room = levelLoader.GetRoom(gc.room.roomx + x, gc.room.roomy + y);
-
-                    if (y != 0)
+                    if(next.rectangle.X == (int)renderObject.rectangle.X && next.rectangle.Y == (int)renderObject.rectangle.X)
                     {
-                        player.rectangle.Y += -y * ((gc.room.tiles.Length - 2) * gc.tileSize);
-                    }
-                    else
-                    {
-                        player.rectangle.X += -x * ((gc.room.tiles[0].Length - 2) * gc.tileSize);
+                        return;
                     }
                 }
-
-                else if (next.graphic != '#' && next.graphic != ',')
+                if (next.graphic != '#' && next.graphic != ',')
                 {
                     player.rectangle.X = newx;
                     player.rectangle.Y = newy;
