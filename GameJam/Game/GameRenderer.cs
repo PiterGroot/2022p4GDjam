@@ -7,6 +7,7 @@ namespace GameJam.Game
 {
     public class GameRenderer : IDisposable
     {
+        private bool canWin = true;
         public bool wonGame;
         private readonly GameContext context;
         private float frametime;
@@ -63,9 +64,15 @@ namespace GameJam.Game
                 g.DrawString($"{context.p1BombCount}", tinyFont, Brush, -16, 0);
                 g.DrawString($"{context.p2BombCount}", tinyFont, Brush, 272, 224);
             }
-            else
+            else if(wonGame && canWin)
             {
-                if(context.winner == "Player 1")
+                canWin = false;
+
+                AudioManager.PlayMusic();
+            }
+            else if (wonGame)
+            {
+                if (context.winner == "Player 1")
                 {
                     g.DrawString($"{context.winner} won!!!", font, p1Brush, (RenderForm.AppClientSize.Width / 2), 100);
 
