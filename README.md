@@ -1,9 +1,3 @@
-# gamejam BOMBERMAN
+# Bomberguy'22
 
-Simple base template for students to try some game development with
-
-This is pure windows/2d no unity
-This project can also be run on linux when the mono framework has been installed
-
-
-converting to .net 5/6 or core is also possible but then you will loose linux support "# 2022p4GDjam-" 
+This is a remake of the popular old game bomberman. This was made for a school game jam
