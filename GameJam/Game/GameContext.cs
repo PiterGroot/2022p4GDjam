@@ -10,7 +10,7 @@
     public class GameContext {
         internal List<RenderObject> bombs = new List<RenderObject>();
         internal List<RenderObject> explosionTiles = new List<RenderObject>();
-        internal int scaleunit = 4;
+        internal int scaleunit = 3;
 
         internal int tileSize = 16;
         internal RenderObject player = new RenderObject();

@@ -15,9 +15,11 @@ namespace GameJam
 
     public partial class RenderForm : Form
     {
+        private KeyEventArgs lastKey;
+        private Vector2 camModifier;
         private Vector2 p1Pos;
         private Vector2 p2Pos;
-
+        public static Size AppClientSize;
         private LevelLoader levelLoader;
         private float frametime;
         private GameRenderer renderer;
@@ -36,6 +38,8 @@ namespace GameJam
             KeyDown += RenderForm_KeyDown;
             FormClosing += Form1_FormClosing;
             Load += RenderForm_Load;
+
+            camModifier = Vector2.Zero();
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e) {
@@ -44,7 +48,7 @@ namespace GameJam
         private void RenderForm_Load(object sender, EventArgs e)
         {
             levelLoader = new LevelLoader(gc.tileSize, new FileLevelDataSource());
-            levelLoader.LoadRooms(gc.spriteMap.GetMap());
+            levelLoader.LoadRooms(gc.spriteMap);
 
             renderer = new GameRenderer(gc);
 
@@ -53,8 +57,8 @@ namespace GameJam
             ClientSize =
                  new Size(
 
-                    (gc.tileSize * gc.room.tiles[0].Length) * gc.scaleunit,
-                    (gc.tileSize * gc.room.tiles.Length) * gc.scaleunit
+                    (gc.tileSize * gc.room.tiles[0].Length) * gc.scaleunit * 3, 
+                    (gc.tileSize * gc.room.tiles.Length) * gc.scaleunit * 3
                     );
         }
 
@@ -72,7 +76,7 @@ namespace GameJam
             gc.player1 = new RenderObject()
             {
                 frames = gc.spriteMap.GetPlayer1Frames(),
-                rectangle = new Rectangle(432, 224, gc.tileSize, gc.tileSize),
+                rectangle = new Rectangle(240, 208, gc.tileSize, gc.tileSize),
             };
 
             gc.p1Heart = new RenderObject()
@@ -106,6 +110,7 @@ namespace GameJam
             {
                 MovePlayer(1, 0);
             }
+           
             else if (e.KeyCode == Keys.Space)
             {
                 new Bomb(gc, 2500, p2Pos, true);
@@ -138,9 +143,12 @@ namespace GameJam
             {
                 gc.SetRenderScale(1);
             }
+
+            if(e.KeyCode == Keys.LShiftKey)
+            {
+                lastKey = e;
+            }
         }
-
-
 
         private void MovePlayer(int x, int y)
         {
@@ -209,6 +217,11 @@ namespace GameJam
         public void Logic(float frametime)
         {
             this.frametime = frametime;
+            AppClientSize = new Size(
+
+                   (gc.tileSize * gc.room.tiles[0].Length) + (int)camModifier.x,
+                   (gc.tileSize * gc.room.tiles.Length) + (int)camModifier.x
+                   );
         }
         protected override void OnPaint(PaintEventArgs e)
         {

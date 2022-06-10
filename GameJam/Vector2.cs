@@ -14,5 +14,9 @@ namespace GameJam
             x = _x;
             y = _y;
         }
+        public static Vector2 Zero()
+        {
+            return new Vector2(0, 0);
+        }
     }
 }

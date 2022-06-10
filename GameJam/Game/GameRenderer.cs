@@ -37,6 +37,8 @@ namespace GameJam.Game
             this.frametime = frametime;
 
             Graphics g = InitGraphics(e);
+          //  Console.WriteLine(RenderForm.AppClientSize.Width /2);
+            g.TranslateTransform(RenderForm.AppClientSize.Width /2, 25);
             RenderFloor(g);
             foreach (RenderObject explosions in context.explosionTiles)
             {
