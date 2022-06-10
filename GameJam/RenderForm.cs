@@ -64,7 +64,7 @@ namespace GameJam
 
         private void InstantiateRenderObjects()
         {
-            p1Pos = new Vector2(432, 224);
+            p1Pos = new Vector2(240, 208);
             p2Pos = new Vector2(16, 16);
 
             gc.player = new RenderObject()
@@ -150,7 +150,7 @@ namespace GameJam
             }
             if(e.KeyCode == Keys.Escape)
             {
-               
+                Application.Restart();
             }
         }
 

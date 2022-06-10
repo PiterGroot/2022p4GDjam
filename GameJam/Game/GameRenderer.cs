@@ -12,7 +12,9 @@ namespace GameJam.Game
         private float frametime;
         private readonly Image image;
         private Font font = new Font("Monospace", 16);
-        private SolidBrush drawBrush = new SolidBrush(Color.White);
+        private SolidBrush p1Brush = new SolidBrush(Color.Red);
+        private SolidBrush p2Brush = new SolidBrush(Color.Blue);
+        private SolidBrush Brush = new SolidBrush(Color.White);
 
         public GameRenderer(GameContext context)
         {
@@ -61,7 +63,16 @@ namespace GameJam.Game
             }
             else
             {
-                g.DrawString($"{context.winner} won!!!", font, drawBrush, (RenderForm.AppClientSize.Width / 2), 100);
+                if(context.winner == "Player 1")
+                {
+                    g.DrawString($"{context.winner} won!!!", font, p1Brush, (RenderForm.AppClientSize.Width / 2), 100);
+
+                }
+                else
+                {
+                    g.DrawString($"{context.winner} won!!!", font, p2Brush, (RenderForm.AppClientSize.Width / 2), 100);
+                }
+                g.DrawString($"press esc to retry", font, Brush, (RenderForm.AppClientSize.Width / 2), 120);
             }
         }
 
