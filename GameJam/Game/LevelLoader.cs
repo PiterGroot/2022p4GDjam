@@ -61,8 +61,6 @@ namespace GameJam.Game
                     };
                     if (room.tiles[y][x].graphic == ',')
                     {
-                        
-                        Console.WriteLine(randomTileNumber.Next(1, 3));
                         if(randomTileNumber.Next(1, 3) == 1)
                         {
                             room.tiles[y][x].sprite = map.GetSprite(',');

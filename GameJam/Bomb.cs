@@ -16,6 +16,7 @@ namespace GameJam
 {
     class Bomb
     {
+        private bool canUp = true, canRight = true, canDown = true, canLeft = true;
         private GameContext gc;
         private RenderObject bombObj;
         public Vector2 bombPos;
@@ -56,7 +57,7 @@ namespace GameJam
             MyTimer.Tick += (sender, e) => BombTimer(MyTimer);
             MyTimer.Start();
         }
-        
+
         private void BombTimer(Timer timer) {
             timer.Dispose();
             gc.bombs.Remove(bombObj);
@@ -74,6 +75,7 @@ namespace GameJam
         private void CreateExplosion()
         {
             Rectangle center = gc.GetCurrentTileRectangle(playerPos);
+            RenderObject[] allTiles = new RenderObject[9];
 
             //place core
             if (playerPos == null) return;
@@ -82,85 +84,108 @@ namespace GameJam
                 frames = gc.GetSingeFrameArray('x'),
                 rectangle = gc.GetCurrentTileRectangle(playerPos),
             };
-            //go up
-            SetTile(new Vector2(center.X, center.Y - gc.tileSize));
-            RenderObject upExplosion = new RenderObject()
-            {
-                frames = gc.GetSingeFrameArray('I'),
-                rectangle = new Rectangle(center.X, center.Y - gc.tileSize, gc.tileSize, gc.tileSize),
-            };
-            SetTile(new Vector2(center.X, center.Y - gc.tileSize * 2));
-            RenderObject upRoofExplosion = new RenderObject()
-            {
-                frames = gc.GetSingeFrameArray('^'),
-                rectangle = new Rectangle(center.X, center.Y - gc.tileSize * 2, gc.tileSize, gc.tileSize),
-            };
-
-            //go right
-            SetTile(new Vector2(center.X + gc.tileSize, center.Y));
-            RenderObject rightExplosion = new RenderObject()
-            {
-                frames = gc.GetSingeFrameArray('-'),
-                rectangle = new Rectangle(center.X + gc.tileSize, center.Y, gc.tileSize, gc.tileSize),
-            };
-
-            SetTile(new Vector2(center.X + gc.tileSize * 2, center.Y));
-            RenderObject rightRoofExplosion = new RenderObject()
-            {
-                frames = gc.GetSingeFrameArray('>'),
-                rectangle = new Rectangle(center.X + gc.tileSize * 2, center.Y, gc.tileSize, gc.tileSize),
-            };
-
-            //go down
-            SetTile(new Vector2(center.X, center.Y + gc.tileSize));
-            RenderObject downExplosion = new RenderObject()
-            {
-                frames = gc.GetSingeFrameArray('I'),
-                rectangle = new Rectangle(center.X, center.Y + gc.tileSize, gc.tileSize, gc.tileSize),
-            };
-
-            SetTile(new Vector2(center.X, center.Y + gc.tileSize * 2));
-            RenderObject downRoofExplosion = new RenderObject()
-            {
-                frames = gc.GetSingeFrameArray('V'),
-                rectangle = new Rectangle(center.X, center.Y + gc.tileSize * 2, gc.tileSize, gc.tileSize),
-            };
-
-            //go left
-            SetTile(new Vector2(center.X - gc.tileSize, center.Y));
-            RenderObject leftExplosion = new RenderObject()
-            {
-                frames = gc.GetSingeFrameArray('-'),
-                rectangle = new Rectangle(center.X - gc.tileSize, center.Y, gc.tileSize, gc.tileSize),
-            };
-
-            SetTile(new Vector2(center.X - gc.tileSize * 2, center.Y));
-            RenderObject leftRoofExplosion = new RenderObject()
-            {
-                frames = gc.GetSingeFrameArray('<'),
-                rectangle = new Rectangle(center.X - gc.tileSize * 2, center.Y, gc.tileSize, gc.tileSize),
-            };
-
-            RenderObject[] allTiles = new RenderObject[9];
-
             gc.explosionTiles.Add(coreExplosion);
             allTiles[0] = coreExplosion;
-            gc.explosionTiles.Add(upExplosion);
-            allTiles[1] = upExplosion;
-            gc.explosionTiles.Add(upRoofExplosion);
-            allTiles[2] = upRoofExplosion;
-            gc.explosionTiles.Add(rightExplosion);
-            allTiles[3] = rightExplosion;
-            gc.explosionTiles.Add(rightRoofExplosion);
-            allTiles[4] = rightRoofExplosion;
-            gc.explosionTiles.Add(downExplosion);
-            allTiles[5] = downExplosion;
-            gc.explosionTiles.Add(downRoofExplosion);
-            allTiles[6] = downRoofExplosion;
-            gc.explosionTiles.Add(leftExplosion);
-            allTiles[7] = leftExplosion;
-            gc.explosionTiles.Add(leftRoofExplosion);
-            allTiles[8] = leftRoofExplosion;
+
+            //go up
+            SetTile(new Vector2(center.X, center.Y - gc.tileSize), ExplosionDirection.UP);
+            if (canUp)
+            {
+                RenderObject upExplosion = new RenderObject()
+                {
+                    frames = gc.GetSingeFrameArray('I'),
+                    rectangle = new Rectangle(center.X, center.Y - gc.tileSize, gc.tileSize, gc.tileSize),
+                };
+                gc.explosionTiles.Add(upExplosion);
+                allTiles[1] = upExplosion;
+            }
+            SetTile(new Vector2(center.X, center.Y - gc.tileSize * 2), ExplosionDirection.UP);
+            if (canUp)
+            {
+                RenderObject upRoofExplosion = new RenderObject()
+                {
+                    frames = gc.GetSingeFrameArray('^'),
+                    rectangle = new Rectangle(center.X, center.Y - gc.tileSize * 2, gc.tileSize, gc.tileSize),
+                };
+                gc.explosionTiles.Add(upRoofExplosion);
+                allTiles[2] = upRoofExplosion;
+            }
+
+            SetTile(new Vector2(center.X + gc.tileSize, center.Y), ExplosionDirection.RIGHT);
+            if (canRight)
+            {
+                //go right
+                RenderObject rightExplosion = new RenderObject()
+                {
+                    frames = gc.GetSingeFrameArray('-'),
+                    rectangle = new Rectangle(center.X + gc.tileSize, center.Y, gc.tileSize, gc.tileSize),
+                };
+                gc.explosionTiles.Add(rightExplosion);
+                allTiles[3] = rightExplosion;
+            }
+
+            SetTile(new Vector2(center.X + gc.tileSize * 2, center.Y), ExplosionDirection.RIGHT);
+            if (canRight)
+            {
+                RenderObject rightRoofExplosion = new RenderObject()
+                {
+                    frames = gc.GetSingeFrameArray('>'),
+                    rectangle = new Rectangle(center.X + gc.tileSize * 2, center.Y, gc.tileSize, gc.tileSize),
+                };
+                gc.explosionTiles.Add(rightRoofExplosion);
+                allTiles[4] = rightRoofExplosion;
+            }
+
+            //go down
+            SetTile(new Vector2(center.X, center.Y + gc.tileSize), ExplosionDirection.DOWN);
+            if (canDown)
+            {
+                RenderObject downExplosion = new RenderObject()
+                {
+                    frames = gc.GetSingeFrameArray('I'),
+                    rectangle = new Rectangle(center.X, center.Y + gc.tileSize, gc.tileSize, gc.tileSize),
+                };
+                gc.explosionTiles.Add(downExplosion);
+                allTiles[5] = downExplosion;
+            }
+
+            SetTile(new Vector2(center.X, center.Y + gc.tileSize * 2), ExplosionDirection.DOWN);
+            if (canDown)
+            {
+                RenderObject downRoofExplosion = new RenderObject()
+                {
+                    frames = gc.GetSingeFrameArray('V'),
+                    rectangle = new Rectangle(center.X, center.Y + gc.tileSize * 2, gc.tileSize, gc.tileSize),
+                };
+                gc.explosionTiles.Add(downRoofExplosion);
+                allTiles[6] = downRoofExplosion;
+            }
+
+            //go left
+            SetTile(new Vector2(center.X - gc.tileSize, center.Y), ExplosionDirection.LEFT);
+            if (canLeft)
+            {
+                RenderObject leftExplosion = new RenderObject()
+                {
+                    frames = gc.GetSingeFrameArray('-'),
+                    rectangle = new Rectangle(center.X - gc.tileSize, center.Y, gc.tileSize, gc.tileSize),
+                };
+                gc.explosionTiles.Add(leftExplosion);
+                allTiles[7] = leftExplosion;
+            }
+
+            SetTile(new Vector2(center.X - gc.tileSize * 2, center.Y), ExplosionDirection.LEFT);
+            if (canLeft)
+            {
+                RenderObject leftRoofExplosion = new RenderObject()
+                {
+                    frames = gc.GetSingeFrameArray('<'),
+                    rectangle = new Rectangle(center.X - gc.tileSize * 2, center.Y, gc.tileSize, gc.tileSize),
+                };
+
+                gc.explosionTiles.Add(leftRoofExplosion);
+                allTiles[8] = leftRoofExplosion;
+            }
 
             Timer despawnTimer = new Timer();
             despawnTimer.Interval = (750);
@@ -168,19 +193,44 @@ namespace GameJam
             despawnTimer.Start();
         }
 
-        private void SetTile(Vector2 pos)
+        private void SetTile(Vector2 pos, ExplosionDirection direction)
         {
             Tile next = gc.room.tiles.SelectMany(ty => ty.Where(tx => tx.rectangle.Contains((int)pos.x, (int)pos.y))).FirstOrDefault();
             if (next == null) return;
-            if (next.rectangle.X == (int)gc.player.rectangle.X && next.rectangle.Y == (int)gc.player.rectangle.Y)
+            if (next.graphic == '#')
             {
-                Console.WriteLine("Player 1 damage");
+                switch (direction)
+                {
+                    case ExplosionDirection.UP:
+                        canUp = false;
+                        break;
+                    case ExplosionDirection.RIGHT:
+                        canRight = false;
+                        break;
+                    case ExplosionDirection.DOWN:
+                        canDown = false;
+                        break;
+                    case ExplosionDirection.LEFT:
+                        canLeft = false;
+                        break;
+                }
             }
-            if (next.rectangle.X == (int)gc.player1.rectangle.X && next.rectangle.Y == (int)gc.player1.rectangle.Y)
+            if (next.graphic == ',' && direction == ExplosionDirection.DOWN && canDown)
             {
-                Console.WriteLine("Player 2 damage");
+                next.graphic = '.';
+                next.sprite = gc.spriteMap.GetSprite('.');
             }
-            if (next.graphic == ',')
+            if (next.graphic == ',' && direction == ExplosionDirection.UP && canUp)
+            {
+                next.graphic = '.';
+                next.sprite = gc.spriteMap.GetSprite('.');
+            }
+            if (next.graphic == ',' && direction == ExplosionDirection.LEFT && canLeft)
+            {
+                next.graphic = '.';
+                next.sprite = gc.spriteMap.GetSprite('.');
+            }
+            if (next.graphic == ',' && direction == ExplosionDirection.RIGHT && canRight)
             {
                 next.graphic = '.';
                 next.sprite = gc.spriteMap.GetSprite('.');

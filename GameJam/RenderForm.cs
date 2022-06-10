@@ -213,9 +213,38 @@ namespace GameJam
                 }
             }
         }
-
+        private void CheckDamagep1()
+        {
+            Tile current = gc.room.tiles.SelectMany(ty => ty.Where(tx => tx.rectangle.Contains((int)gc.player.rectangle.X, (int)gc.player.rectangle.Y))).FirstOrDefault();
+            if (current.graphic != '#' && current.graphic != ',')
+            {
+                foreach (RenderObject renderObject in gc.explosionTiles)
+                {
+                    if (gc.player.rectangle.X == (int)renderObject.rectangle.X && gc.player.rectangle.Y == (int)renderObject.rectangle.Y)
+                    {
+                        Console.WriteLine("Player 1 is dead!!!!!!!!!!!!");
+                    }
+                }
+            }
+        }
+        private void CheckDamagep2()
+        {
+            Tile current = gc.room.tiles.SelectMany(ty => ty.Where(tx => tx.rectangle.Contains((int)gc.player1.rectangle.X, (int)gc.player1.rectangle.Y))).FirstOrDefault();
+            if (current.graphic != '#' && current.graphic != ',')
+            {
+                foreach (RenderObject renderObject in gc.explosionTiles)
+                {
+                    if (gc.player1.rectangle.X == (int)renderObject.rectangle.X && gc.player1.rectangle.Y == (int)renderObject.rectangle.Y)
+                    {
+                        Console.WriteLine("Player 2 is dead!!!!!!!!!!!!");
+                    }
+                }
+            }
+        }
         public void Logic(float frametime)
         {
+            CheckDamagep1();
+            CheckDamagep2();
             this.frametime = frametime;
             AppClientSize = new Size(
 
