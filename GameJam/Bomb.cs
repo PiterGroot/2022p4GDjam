@@ -1,15 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GameJam.Tools;
-using System.Diagnostics;
+﻿using System.Linq;
 using System.Drawing;
 using System.Windows.Forms;
-using System.Media;
-using System.IO;
-using MathNet;
 using GameJam.Game;
 
 namespace GameJam

@@ -136,12 +136,6 @@
     <Content Include="leveldata\room.0.0.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="leveldata\room.0.1.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="leveldata\room.1.0.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <None Include="SoundFX\bomb_place.wav" />
     <None Include="SoundFX\error.wav" />
     <None Include="Resources\explosion.wav" />

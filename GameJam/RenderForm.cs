@@ -15,8 +15,6 @@ namespace GameJam
 
     public partial class RenderForm : Form
     {
-        private KeyEventArgs lastKey;
-        private Vector2 camModifier;
         private Vector2 p1Pos;
         private Vector2 p2Pos;
         public static Size AppClientSize;
@@ -39,7 +37,6 @@ namespace GameJam
             FormClosing += Form1_FormClosing;
             Load += RenderForm_Load;
 
-            camModifier = Vector2.Zero();
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e) {
@@ -64,6 +61,8 @@ namespace GameJam
 
         private void InstantiateRenderObjects()
         {
+            gc.ReloadBombs();
+            
             p1Pos = new Vector2(240, 208);
             p2Pos = new Vector2(16, 16);
 
@@ -87,7 +86,7 @@ namespace GameJam
             gc.p2Heart = new RenderObject()
             {
                 frames = gc.GetSingeFrameArray('O'),
-                rectangle = new Rectangle(164, 0, gc.tileSize, gc.tileSize),
+                rectangle = new Rectangle(256, 224, gc.tileSize, gc.tileSize),
             };
 
         }
@@ -113,8 +112,12 @@ namespace GameJam
            
             else if (e.KeyCode == Keys.Space)
             {
-                new Bomb(gc, 2500, p2Pos, true);
-                Console.WriteLine("BOMB placed at : " + p2Pos.x + " " + p2Pos.y);
+                if(gc.p1BombCount >= 1)
+                {
+                    gc.p1BombCount--;
+                    new Bomb(gc, 2500, p2Pos, true);
+                    Console.WriteLine("BOMB placed at : " + p2Pos.x + " " + p2Pos.y);
+                }
             }
 
             //second player controls
@@ -132,7 +135,12 @@ namespace GameJam
             }   
 
             else if (e.KeyCode == Keys.Enter) {
-                new Bomb(gc, 2500, p1Pos, false);
+                if(gc.p2BombCount >= 1)
+                {
+                    gc.p2BombCount--;
+                    new Bomb(gc, 2500, p1Pos, false);
+                    Console.WriteLine("BOMB placed at : " + p1Pos.x + " " + p1Pos.y);
+                }
             }
 
             else if (e.KeyCode == Keys.Subtract)
@@ -144,10 +152,6 @@ namespace GameJam
                 gc.SetRenderScale(1);
             }
 
-            if(e.KeyCode == Keys.LShiftKey)
-            {
-                lastKey = e;
-            }
             if(e.KeyCode == Keys.Escape)
             {
                 Application.Restart();
@@ -230,7 +234,7 @@ namespace GameJam
                 {
                     if (gc.player.rectangle.X == (int)renderObject.rectangle.X && gc.player.rectangle.Y == (int)renderObject.rectangle.Y && !renderer.wonGame)
                     {
-                        Console.WriteLine("Player 1 is dead!!!!!!!!!!!!");
+                        Console.WriteLine("Player 1 is dead!");
                         gc.winner = "Player 2";
                         renderer.wonGame = true;
                     }
@@ -246,7 +250,7 @@ namespace GameJam
                 {
                     if (gc.player1.rectangle.X == (int)renderObject.rectangle.X && gc.player1.rectangle.Y == (int)renderObject.rectangle.Y && !renderer.wonGame)
                     {
-                        Console.WriteLine("Player 2 is dead!!!!!!!!!!!!");
+                        Console.WriteLine("Player 2 is dead!");
                         gc.winner = "Player 1";
                         renderer.wonGame = true;
                     }
@@ -260,8 +264,8 @@ namespace GameJam
             this.frametime = frametime;
             AppClientSize = new Size(
 
-                   (gc.tileSize * gc.room.tiles[0].Length) + (int)camModifier.x,
-                   (gc.tileSize * gc.room.tiles.Length) + (int)camModifier.x
+                   (gc.tileSize * gc.room.tiles[0].Length) + 0,
+                   (gc.tileSize * gc.room.tiles.Length) + 0
                    );
         }
         protected override void OnPaint(PaintEventArgs e)

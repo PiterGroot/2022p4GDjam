@@ -12,6 +12,7 @@ namespace GameJam.Game
         private float frametime;
         private readonly Image image;
         private Font font = new Font("Monospace", 16);
+        private Font tinyFont = new Font("Monospace", 10);
         private SolidBrush p1Brush = new SolidBrush(Color.Red);
         private SolidBrush p2Brush = new SolidBrush(Color.Blue);
         private SolidBrush Brush = new SolidBrush(Color.White);
@@ -59,7 +60,8 @@ namespace GameJam.Game
                 RenderObject(g, context.player1);
                 RenderObject(g, context.p1Heart);
                 RenderObject(g, context.p2Heart);
-
+                g.DrawString($"{context.p1BombCount}", tinyFont, Brush, -16, 0);
+                g.DrawString($"{context.p2BombCount}", tinyFont, Brush, 272, 224);
             }
             else
             {

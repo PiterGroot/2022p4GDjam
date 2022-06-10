@@ -8,6 +8,9 @@
     using System.Linq;
     using System.Windows.Forms;
     public class GameContext {
+
+        internal float p1BombCount =3;
+        internal float p2BombCount =3;
         internal List<RenderObject> bombs = new List<RenderObject>();
         internal List<RenderObject> explosionTiles = new List<RenderObject>();
         internal int scaleunit = 3;
@@ -25,6 +28,26 @@
             Rectangle[] singleFrameArray = new Rectangle[1];
             singleFrameArray[0] = spriteMap.GetSprite(singleSpriteGraphic);
             return singleFrameArray;
+        }
+        internal void ReloadBombs()
+        {
+            Timer MyTimer = new Timer();
+            MyTimer.Interval = (5000);
+            MyTimer.Tick += (sender, e) => ReloadNow(MyTimer);
+            MyTimer.Start();
+        }
+        internal void ReloadNow(Timer mytimer)
+        {
+            mytimer.Dispose();
+            if (p1BombCount <= 2)
+            {
+                p1BombCount++;
+            }
+            if(p2BombCount <= 2)
+            {
+                p2BombCount++;
+            }
+            ReloadBombs();
         }
 
         internal Rectangle GetCurrentTileRectangle(Vector2 pos)
