@@ -67,7 +67,6 @@ namespace GameJam
         private void OnBombExplode()
         {
             AudioManager.PlaySound(Properties.Resources.explosion);
-            Console.WriteLine("BOMB EXPLODED" + Properties.Resources.explosion);
 
             CreateExplosion();
         }

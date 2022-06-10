@@ -148,6 +148,10 @@ namespace GameJam
             {
                 lastKey = e;
             }
+            if(e.KeyCode == Keys.Escape)
+            {
+               
+            }
         }
 
         private void MovePlayer(int x, int y)
@@ -171,9 +175,11 @@ namespace GameJam
                 {
                     foreach (RenderObject renderObject in gc.explosionTiles)
                     {
-                        if (newx == (int)renderObject.rectangle.X && newy == (int)renderObject.rectangle.Y)
+                        if (newx == (int)renderObject.rectangle.X && newy == (int)renderObject.rectangle.Y && !renderer.wonGame)
                         {
                             Console.WriteLine("Player 1 is dead");
+                            gc.winner = "Player 2";
+                            renderer.wonGame = true;
                         }
                     }
                     player.rectangle.X = newx;
@@ -201,9 +207,11 @@ namespace GameJam
                 if (next.graphic != '#' && next.graphic != ',') {
                     foreach (RenderObject renderObject in gc.explosionTiles)
                     {
-                        if (newx == (int)renderObject.rectangle.X && newy == (int)renderObject.rectangle.Y)
+                        if (newx == (int)renderObject.rectangle.X && newy == (int)renderObject.rectangle.Y && !renderer.wonGame)
                         {
                             Console.WriteLine("Player 2 is dead");
+                            gc.winner = "Player 1";
+                            renderer.wonGame = true;
                         }
                     }
                     player.rectangle.X = newx;
@@ -220,9 +228,11 @@ namespace GameJam
             {
                 foreach (RenderObject renderObject in gc.explosionTiles)
                 {
-                    if (gc.player.rectangle.X == (int)renderObject.rectangle.X && gc.player.rectangle.Y == (int)renderObject.rectangle.Y)
+                    if (gc.player.rectangle.X == (int)renderObject.rectangle.X && gc.player.rectangle.Y == (int)renderObject.rectangle.Y && !renderer.wonGame)
                     {
                         Console.WriteLine("Player 1 is dead!!!!!!!!!!!!");
+                        gc.winner = "Player 2";
+                        renderer.wonGame = true;
                     }
                 }
             }
@@ -234,9 +244,11 @@ namespace GameJam
             {
                 foreach (RenderObject renderObject in gc.explosionTiles)
                 {
-                    if (gc.player1.rectangle.X == (int)renderObject.rectangle.X && gc.player1.rectangle.Y == (int)renderObject.rectangle.Y)
+                    if (gc.player1.rectangle.X == (int)renderObject.rectangle.X && gc.player1.rectangle.Y == (int)renderObject.rectangle.Y && !renderer.wonGame)
                     {
                         Console.WriteLine("Player 2 is dead!!!!!!!!!!!!");
+                        gc.winner = "Player 1";
+                        renderer.wonGame = true;
                     }
                 }
             }

@@ -7,14 +7,16 @@ namespace GameJam.Game
 {
     public class GameRenderer : IDisposable
     {
+        public bool wonGame;
         private readonly GameContext context;
         private float frametime;
         private readonly Image image;
+        private Font font = new Font("Monospace", 16);
+        private SolidBrush drawBrush = new SolidBrush(Color.White);
 
         public GameRenderer(GameContext context)
         {
             this.context = context;
-
             image = Bitmap.FromFile("sprites.png");
 
         }
@@ -37,22 +39,30 @@ namespace GameJam.Game
             this.frametime = frametime;
 
             Graphics g = InitGraphics(e);
-          //  Console.WriteLine(RenderForm.AppClientSize.Width /2);
-            g.TranslateTransform(RenderForm.AppClientSize.Width /2, 25);
-            RenderFloor(g);
-            foreach (RenderObject explosions in context.explosionTiles)
+            if (!wonGame)
             {
-                RenderObject(g, explosions);
+                //  Console.WriteLine(RenderForm.AppClientSize.Width /2);
+                g.TranslateTransform(RenderForm.AppClientSize.Width / 2, 25);
+                RenderFloor(g);
+                foreach (RenderObject explosions in context.explosionTiles)
+                {
+                    RenderObject(g, explosions);
+                }
+                RenderWalls(g);
+                foreach (RenderObject bomb in context.bombs)
+                {
+                    RenderObject(g, bomb);
+                }
+                RenderObject(g, context.player);
+                RenderObject(g, context.player1);
+                RenderObject(g, context.p1Heart);
+                RenderObject(g, context.p2Heart);
+
             }
-            RenderWalls(g);
-            foreach (RenderObject bomb in context.bombs)
+            else
             {
-                RenderObject(g, bomb);
+                g.DrawString($"{context.winner} won!!!", font, drawBrush, (RenderForm.AppClientSize.Width / 2), 100);
             }
-            RenderObject(g, context.player);
-            RenderObject(g, context.player1);
-            RenderObject(g, context.p1Heart);
-            RenderObject(g, context.p2Heart);
         }
 
         private void RenderFloor(Graphics g)

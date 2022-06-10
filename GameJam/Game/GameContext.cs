@@ -11,7 +11,7 @@
         internal List<RenderObject> bombs = new List<RenderObject>();
         internal List<RenderObject> explosionTiles = new List<RenderObject>();
         internal int scaleunit = 3;
-
+        internal string winner = "entity";
         internal int tileSize = 16;
         internal RenderObject player = new RenderObject();
         internal RenderObject player1 = new RenderObject();
