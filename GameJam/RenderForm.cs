@@ -10,6 +10,7 @@ using System.IO;
 using System.Collections.Generic;
 using MathNet;
 
+
 namespace GameJam
 {
 
@@ -28,7 +29,7 @@ namespace GameJam
 
             DoubleBuffered = true;
             ResizeRedraw = true;
-
+            
             WindowState = FormWindowState.Normal;
             FormBorderStyle = FormBorderStyle.None;
             Bounds = Screen.PrimaryScreen.Bounds;
@@ -264,8 +265,8 @@ namespace GameJam
             this.frametime = frametime;
             AppClientSize = new Size(
 
-                   (gc.tileSize * gc.room.tiles[0].Length) + 0,
-                   (gc.tileSize * gc.room.tiles.Length) + 0
+                   (gc.tileSize * gc.room.tiles[0].Length) /2,
+                   (gc.tileSize * gc.room.tiles.Length) /2
                    );
         }
         protected override void OnPaint(PaintEventArgs e)

@@ -1,5 +1,6 @@
 using System;
 using System.Drawing;
+using SharpDX.DirectInput;
 
 namespace GameJam.Game
 {

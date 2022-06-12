@@ -22,7 +22,6 @@ namespace GameJam.Game
         {
             this.context = context;
             image = Bitmap.FromFile("sprites.png");
-
         }
         private Graphics InitGraphics(PaintEventArgs e)
         {
