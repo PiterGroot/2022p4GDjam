@@ -2,11 +2,13 @@
 using System.Drawing;
 using System.Windows.Forms;
 using GameJam.Game;
+using System;
 
 namespace GameJam
 {
     class Bomb
     {
+        private Random rnd = new Random();
         private bool canUp = true, canRight = true, canDown = true, canLeft = true;
         private GameContext gc;
         private RenderObject bombObj;
@@ -207,23 +209,28 @@ namespace GameJam
             }
             if (next.graphic == ',' && direction == ExplosionDirection.DOWN && canDown)
             {
-                next.graphic = '.';
-                next.sprite = gc.spriteMap.GetSprite('.');
+                DestroyTile(next);
             }
             if (next.graphic == ',' && direction == ExplosionDirection.UP && canUp)
             {
-                next.graphic = '.';
-                next.sprite = gc.spriteMap.GetSprite('.');
+                DestroyTile(next);
             }
             if (next.graphic == ',' && direction == ExplosionDirection.LEFT && canLeft)
             {
-                next.graphic = '.';
-                next.sprite = gc.spriteMap.GetSprite('.');
+                DestroyTile(next);
             }
             if (next.graphic == ',' && direction == ExplosionDirection.RIGHT && canRight)
             {
-                next.graphic = '.';
-                next.sprite = gc.spriteMap.GetSprite('.');
+                DestroyTile(next);
+            }
+        }
+        private void DestroyTile(Tile tile)
+        {
+            tile.graphic = '.';
+            tile.sprite = gc.spriteMap.GetSprite('.');
+            if(rnd.Next(0, 101) <= 5)
+            {
+                new Powerup(gc, new Vector2(tile.rectangle.X, tile.rectangle.Y));
             }
         }
         private void DespawnExplosion(Timer timer, RenderObject[] tiles)

@@ -56,6 +56,10 @@ namespace GameJam.Game
                 {
                     RenderObject(g, bomb);
                 }
+                foreach (RenderObject powerUps in context.powerUps)
+                {
+                    RenderObject(g, powerUps);
+                }
                 RenderObject(g, context.player);
                 RenderObject(g, context.player1);
                 RenderObject(g, context.p1Heart);
