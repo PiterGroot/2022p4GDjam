@@ -9,13 +9,15 @@ using System.Media;
 using System.IO;
 using System.Collections.Generic;
 using MathNet;
-
+using SharpDX.XInput;
 
 namespace GameJam
 {
 
     public partial class RenderForm : Form
     {
+        public Gamepad gamepad;
+        public Controller controller;
         private Vector2 p1Pos;
         private Vector2 p2Pos;
         public static Size AppClientSize;
@@ -37,7 +39,7 @@ namespace GameJam
             KeyDown += RenderForm_KeyDown;
             FormClosing += Form1_FormClosing;
             Load += RenderForm_Load;
-
+            controller = new Controller(UserIndex.One);
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e) {
@@ -262,6 +264,9 @@ namespace GameJam
         {
             CheckDamagep1();
             CheckDamagep2();
+
+            UpdateControllerInput();
+
             this.frametime = frametime;
             AppClientSize = new Size(
 
@@ -269,8 +274,13 @@ namespace GameJam
                    (gc.tileSize * gc.room.tiles.Length) /2
                    );
         }
-        protected override void OnPaint(PaintEventArgs e)
-        {
+
+        private void UpdateControllerInput(){
+            //gamepad = controller.GetState().Gamepad;
+            //gamepad.Buttons.HasFlag(GamepadButtonFlags.DPadDown);
+        }
+
+        protected override void OnPaint(PaintEventArgs e){
             base.OnPaint(e);
             renderer.Render(e, frametime);
         }
