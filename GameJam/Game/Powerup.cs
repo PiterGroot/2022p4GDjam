@@ -42,7 +42,7 @@ namespace GameJam.Game
             }
             RenderObject newPowerup = new RenderObject()
             {
-                frames = gc.GetSingeFrameArray(thisPowerUpChar),
+                frames = gc.GetSingeFrameArray('!'),
                 rectangle = new Rectangle((int)position.x, (int)position.y, gc.tileSize, gc.tileSize),
             };
             gc.powerUps.Add(newPowerup);
