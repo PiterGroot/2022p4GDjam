@@ -26,6 +26,7 @@ namespace GameJam
         private float frametime;
         private GameRenderer renderer;
         private readonly GameContext gc = new GameContext();
+        Vibration vibration = new Vibration();
         public RenderForm()
         {
             InitializeComponent();
@@ -317,6 +318,13 @@ namespace GameJam
 
             UpdateControllerInput();
 
+            //int vibrationLeftMotorSpeed = 50000;
+            //State state = controller.GetState();
+    
+            //vibration.RightMotorSpeed = (ushort)vibrationLeftMotorSpeed;
+            //vibration.LeftMotorSpeed = (ushort)vibrationLeftMotorSpeed;
+            //controller.SetVibration(vibration);
+
             this.frametime = frametime;
             AppClientSize = new Size(
 
@@ -373,9 +381,12 @@ namespace GameJam
             }
             if (gamepad.Buttons.HasFlag(GamepadButtonFlags.A) && lastAButton == false)
             {
-                gc.p2BombCount--;
-                new Bomb(gc, 2500, p1Pos, false);
-                lastAButton = true;
+                if (gc.p2BombCount >= 1)
+                {
+                    gc.p2BombCount--;
+                    new Bomb(gc, 2500, p1Pos, false);
+                    lastAButton = true;
+                }
             }
             else
             {
@@ -383,9 +394,12 @@ namespace GameJam
             }
             if (gamepad.Buttons.HasFlag(GamepadButtonFlags.B) && lastBButton == false)
             {
-                gc.p2BombCount--;
-                new Bomb(gc, 2500, p1Pos, false);
-                lastBButton = true;
+                if (gc.p2BombCount >= 1)
+                {
+                    gc.p2BombCount--;
+                    new Bomb(gc, 2500, p1Pos, false);
+                    lastBButton = true;
+                }
             }
             else
             {
@@ -393,9 +407,12 @@ namespace GameJam
             }
             if (gamepad.Buttons.HasFlag(GamepadButtonFlags.X) && lastXButton == false)
             {
-                gc.p2BombCount--;
-                new Bomb(gc, 2500, p1Pos, false);
-                lastXButton = true;
+                if (gc.p2BombCount >= 1)
+                {
+                    gc.p2BombCount--;
+                    new Bomb(gc, 2500, p1Pos, false);
+                    lastXButton = true;
+                }
             }
             else
             {
@@ -403,9 +420,12 @@ namespace GameJam
             }
             if (gamepad.Buttons.HasFlag(GamepadButtonFlags.Y) && lastYButton == false)
             {
-                gc.p2BombCount--;
-                new Bomb(gc, 2500, p1Pos, false);
-                lastYButton = true;
+                if (gc.p2BombCount >= 1)
+                {
+                    gc.p2BombCount--;
+                    new Bomb(gc, 2500, p1Pos, false);
+                    lastYButton = true;
+                }
             }
             else
             {
