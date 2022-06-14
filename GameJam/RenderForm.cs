@@ -196,7 +196,7 @@ namespace GameJam
                         {
                             Console.WriteLine("Player 1 touched powerup");
                             gc.powerUps.Remove(obj);
-                           // OnPowerUpPickup(renderObject);
+                            OnPowerUpPickup(obj, true);
                         }
                     }
                     player.rectangle.X = newx;
@@ -207,15 +207,31 @@ namespace GameJam
             }
         }
 
-        private void OnPowerUpPickup(RenderObject renderObject)
+        private void OnPowerUpPickup(RenderObject renderObject, bool wichPlayer)
         {
             if (renderObject.frames[0] == gc.GetSingeFrameArray('S')[0])
             {
                 Console.WriteLine("Found shield");
             }
-            if (renderObject.frames[0] == gc.GetSingeFrameArray('S')[0])
+            else if (renderObject.frames[0] == gc.GetSingeFrameArray('N')[0])
             {
-                Console.WriteLine("Found shield");
+                Console.WriteLine("Found nuke");
+            }
+            else if (renderObject.frames[0] == gc.GetSingeFrameArray('/')[0])
+            {
+                Console.WriteLine("Found steal");
+                if (wichPlayer) gc.p2BombCount = 0; //p1 
+                else gc.p1BombCount = 0; //p2
+            }
+            else if (renderObject.frames[0] == gc.GetSingeFrameArray('B')[0])
+            {
+                Console.WriteLine("Found bomb");
+                if (wichPlayer) gc.p1BombCount++; //p1 
+                else gc.p2BombCount++; //p2
+            }
+            else if (renderObject.frames[0] == gc.GetSingeFrameArray('J')[0])
+            {
+                Console.WriteLine("Found jump");
             }
         }
 
@@ -242,6 +258,16 @@ namespace GameJam
                             Console.WriteLine("Player 2 is dead");
                             gc.winner = "Player 1";
                             renderer.wonGame = true;
+                        }
+                    }
+                    for (int i = gc.powerUps.Count - 1; i >= 0; i--)
+                    {
+                        RenderObject obj = gc.powerUps[i];
+                        if (newx == (int)obj.rectangle.X && newy == (int)obj.rectangle.Y && !renderer.wonGame)
+                        {
+                            Console.WriteLine("Player 2 touched powerup");
+                            gc.powerUps.Remove(obj);
+                            OnPowerUpPickup(obj, false);
                         }
                     }
                     player.rectangle.X = newx;
