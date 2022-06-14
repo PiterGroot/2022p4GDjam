@@ -31,6 +31,11 @@ namespace GameJam.Game
             tileMap.Add('O', new Rectangle(148, 74, 15, 15));
             tileMap.Add('0', new Rectangle(132, 74, 15, 15));
 
+            tileMap.Add('B', new Rectangle(66, 91, 16, 16));
+            tileMap.Add('N', new Rectangle(86, 93, 16, 16));
+            tileMap.Add('J', new Rectangle(140, 93, 16, 16));
+            tileMap.Add('/', new Rectangle(122, 93, 16, 16));
+            tileMap.Add('S', new Rectangle(103, 92, 16, 16));
 
             //explosion tiles
             //                   ^

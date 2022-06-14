@@ -228,7 +228,7 @@ namespace GameJam
         {
             tile.graphic = '.';
             tile.sprite = gc.spriteMap.GetSprite('.');
-            if(rnd.Next(0, 101) <= 5)
+            if(rnd.Next(0, 101) <= 90)
             {
                 new Powerup(gc, new Vector2(tile.rectangle.X, tile.rectangle.Y));
             }

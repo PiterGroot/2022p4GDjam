@@ -15,34 +15,29 @@ namespace GameJam.Game
         public Powerup(GameContext gc, Vector2 position)
         {
             int randomPowerup = rnd.Next(0, Enum.GetNames(typeof(PowerUpType)).Length);
-            switch (randomPowerup)
+            thisPowerUp = (PowerUpType)randomPowerup;
+            switch (thisPowerUp)
             {
-                case 1:
-                    thisPowerUp = PowerUpType.ExtraBomb;
-                    thisPowerUpChar = '*';
+                case PowerUpType.ExtraBomb:                 
+                    thisPowerUpChar = 'B';
                     break;
-                case 2:
-                    thisPowerUp = PowerUpType.Nuke;
-                    thisPowerUpChar = '@';
+                case PowerUpType.Nuke:
+                    thisPowerUpChar = 'N';
                     break;
-                case 3:
-                    thisPowerUp = PowerUpType.Jump;
+                case PowerUpType.Jump:
                     thisPowerUpChar = 'J';
                     break;
-                case 4:
-                    thisPowerUp = PowerUpType.Shield;
-                    thisPowerUpChar = '%';
+                case PowerUpType.Shield:
+                    thisPowerUpChar = 'S';
                     break;
-                case 5:
-                    thisPowerUp = PowerUpType.BombStealer;
+                case PowerUpType.BombStealer:
                     thisPowerUpChar = '/';
                     break;
-                default:
-                    break;
             }
+            Console.WriteLine("Trying this powerup " + thisPowerUp);
             RenderObject newPowerup = new RenderObject()
             {
-                frames = gc.GetSingeFrameArray('!'),
+                frames = gc.GetSingeFrameArray(thisPowerUpChar),
                 rectangle = new Rectangle((int)position.x, (int)position.y, gc.tileSize, gc.tileSize),
             };
             gc.powerUps.Add(newPowerup);

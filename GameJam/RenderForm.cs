@@ -189,6 +189,16 @@ namespace GameJam
                             renderer.wonGame = true;
                         }
                     }
+                    for (int i = gc.powerUps.Count -1; i >= 0; i--)
+                    {
+                        RenderObject obj = gc.powerUps[i];
+                        if (newx == (int)obj.rectangle.X && newy == (int)obj.rectangle.Y && !renderer.wonGame)
+                        {
+                            Console.WriteLine("Player 1 touched powerup");
+                            gc.powerUps.Remove(obj);
+                           // OnPowerUpPickup(renderObject);
+                        }
+                    }
                     player.rectangle.X = newx;
                     player.rectangle.Y = newy;
                     p2Pos = new Vector2(newx, newy);
@@ -196,6 +206,19 @@ namespace GameJam
 
             }
         }
+
+        private void OnPowerUpPickup(RenderObject renderObject)
+        {
+            if (renderObject.frames[0] == gc.GetSingeFrameArray('S')[0])
+            {
+                Console.WriteLine("Found shield");
+            }
+            if (renderObject.frames[0] == gc.GetSingeFrameArray('S')[0])
+            {
+                Console.WriteLine("Found shield");
+            }
+        }
+
         private void MovePlayer1(int x, int y) {
             RenderObject player = gc.player1;
             float newx = player.rectangle.X + (x * gc.tileSize);
