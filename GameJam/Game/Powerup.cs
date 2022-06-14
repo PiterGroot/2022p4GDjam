@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 
 namespace GameJam.Game
 {
@@ -15,6 +12,7 @@ namespace GameJam.Game
         public Powerup(GameContext gc, Vector2 position)
         {
             int randomPowerup = rnd.Next(0, Enum.GetNames(typeof(PowerUpType)).Length);
+            Thread.Sleep(randomPowerup); //need delay because its to fast to be random
             thisPowerUp = (PowerUpType)randomPowerup;
             switch (thisPowerUp)
             {
@@ -34,7 +32,7 @@ namespace GameJam.Game
                     thisPowerUpChar = '/';
                     break;
             }
-            Console.WriteLine("Trying this powerup " + thisPowerUp);
+            Console.WriteLine("Trying this powerup " + thisPowerUpChar);
             RenderObject newPowerup = new RenderObject()
             {
                 frames = gc.GetSingeFrameArray(thisPowerUpChar),

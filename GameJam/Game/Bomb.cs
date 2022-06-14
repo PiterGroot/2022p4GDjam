@@ -8,7 +8,7 @@ namespace GameJam
 {
     class Bomb
     {
-        private Random rnd = new Random();
+        Random rnd = new Random();
         private bool canUp = true, canRight = true, canDown = true, canLeft = true;
         private GameContext gc;
         private RenderObject bombObj;
@@ -228,11 +228,20 @@ namespace GameJam
         {
             tile.graphic = '.';
             tile.sprite = gc.spriteMap.GetSprite('.');
-            if(rnd.Next(0, 101) <= 10)
+            if(GetRandomChance(10))
             {
                 new Powerup(gc, new Vector2(tile.rectangle.X, tile.rectangle.Y));
             }
         }
+
+        private bool GetRandomChance(float chance)
+        {
+            float num = rnd.Next(0, 101);
+            Console.WriteLine("random number = " + num);
+            if (num <= chance) return true;
+            else return false;
+        }
+
         private void DespawnExplosion(Timer timer, RenderObject[] tiles)
         {
             timer.Dispose();
