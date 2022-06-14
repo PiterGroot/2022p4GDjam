@@ -7,8 +7,12 @@
     using System.Drawing;
     using System.Linq;
     using System.Windows.Forms;
+    using SharpDX.XInput;
+
     public class GameContext {
 
+        internal Vibration vibration = new Vibration();
+        internal int vibrationLeftMotorSpeed;
         internal float p1BombCount =3;
         internal float p2BombCount =3;
         internal List<RenderObject> bombs = new List<RenderObject>();
