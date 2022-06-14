@@ -12,7 +12,7 @@ namespace GameJam.Game
         public Powerup(GameContext gc, Vector2 position)
         {
             int randomPowerup = rnd.Next(0, Enum.GetNames(typeof(PowerUpType)).Length);
-            Thread.Sleep(randomPowerup); //need delay because its to fast to be random
+            Thread.Sleep(15); //need delay because its to fast to be random
             thisPowerUp = (PowerUpType)randomPowerup;
             switch (thisPowerUp)
             {

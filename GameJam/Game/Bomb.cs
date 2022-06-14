@@ -228,7 +228,7 @@ namespace GameJam
         {
             tile.graphic = '.';
             tile.sprite = gc.spriteMap.GetSprite('.');
-            if(GetRandomChance(10))
+            if(GetRandomChance(25))
             {
                 new Powerup(gc, new Vector2(tile.rectangle.X, tile.rectangle.Y));
             }
@@ -237,7 +237,6 @@ namespace GameJam
         private bool GetRandomChance(float chance)
         {
             float num = rnd.Next(0, 101);
-            Console.WriteLine("random number = " + num);
             if (num <= chance) return true;
             else return false;
         }
