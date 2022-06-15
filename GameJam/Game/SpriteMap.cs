@@ -10,6 +10,7 @@ namespace GameJam.Game
         private readonly Rectangle[] playerAnimation;
         private readonly Rectangle[] player1Animation;
         private readonly Rectangle[] bombAnimation;
+        private readonly Rectangle[] nukeSignAnimation;
 
         //to change current tile:
         //Tile currentTile = gc.room.tiles.SelectMany(ty => ty.Where(tx => tx.rectangle.Contains((int)newx, (int)newy))).FirstOrDefault();
@@ -50,6 +51,15 @@ namespace GameJam.Game
             tileMap.Add('V', new Rectangle(36, 158, 16, 16));
             tileMap.Add('<', new Rectangle(4, 126, 16, 16));
             tileMap.Add('x', new Rectangle(36, 126, 16, 16));
+
+
+            nukeSignAnimation = new Rectangle[] {
+                new Rectangle(88, 116, 30, 30),
+                new Rectangle(122, 114, 31, 33),
+                new Rectangle(160, 112, 33, 34),
+                new Rectangle(86, 154, 32, 32),
+                new Rectangle(129, 158, 29, 28)
+            };
 
             playerAnimation = new Rectangle[]
                 {
