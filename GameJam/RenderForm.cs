@@ -18,7 +18,6 @@ namespace GameJam
     public partial class RenderForm : Form
     {
         public Gamepad gamepad;
-        public Controller controller;
         private Vector2 p1Pos;
         private Vector2 p2Pos;
         
@@ -27,7 +26,7 @@ namespace GameJam
         private float frametime;
         private GameRenderer renderer;
         private readonly GameContext gc = new GameContext();
-        private const int CONTROLLER_RUMBLE = 50000;
+        private const int CONTROLLER_RUMBLE = 65000;
         public RenderForm()
         {
             InitializeComponent();
@@ -40,7 +39,7 @@ namespace GameJam
             Bounds = Screen.PrimaryScreen.Bounds;
 
             //setting up controller
-            controller = new Controller(UserIndex.One);
+            gc.controller = new Controller(UserIndex.One);
             gc.vibrationLeftMotorSpeed = CONTROLLER_RUMBLE;
             gc.vibration.RightMotorSpeed = (ushort)gc.vibrationLeftMotorSpeed;
             gc.vibration.LeftMotorSpeed = (ushort)gc.vibrationLeftMotorSpeed;
@@ -343,7 +342,7 @@ namespace GameJam
         bool lastXButton;
         bool lastYButton;
         private void UpdateControllerInput(){
-            gamepad = controller.GetState().Gamepad;
+            gamepad = gc.controller.GetState().Gamepad;
             if (gamepad.Buttons.HasFlag(GamepadButtonFlags.DPadRight) && lastKeyPressRight == false)
             {
                 MovePlayer1(1, 0);
@@ -388,7 +387,7 @@ namespace GameJam
                     gc.vibration.LeftMotorSpeed = (ushort)gc.vibrationLeftMotorSpeed;
                     gc.vibration.RightMotorSpeed = (ushort)gc.vibrationLeftMotorSpeed;
 
-                    controller.SetVibration(gc.vibration);
+                    gc.controller.SetVibration(gc.vibration);
                     gc.p2BombCount--;
                     new Bomb(gc, 2500, p1Pos, false);
                     lastAButton = true;
@@ -406,7 +405,7 @@ namespace GameJam
                     gc.vibration.LeftMotorSpeed = (ushort)gc.vibrationLeftMotorSpeed;
                     gc.vibration.RightMotorSpeed = (ushort)gc.vibrationLeftMotorSpeed;
 
-                    controller.SetVibration(gc.vibration);
+                    gc.controller.SetVibration(gc.vibration);
                     gc.p2BombCount--;
                     new Bomb(gc, 2500, p1Pos, false);
                     lastBButton = true;
@@ -424,7 +423,7 @@ namespace GameJam
                     gc.vibration.LeftMotorSpeed = (ushort)gc.vibrationLeftMotorSpeed;
                     gc.vibration.RightMotorSpeed = (ushort)gc.vibrationLeftMotorSpeed;
 
-                    controller.SetVibration(gc.vibration);
+                    gc.controller.SetVibration(gc.vibration);
                     gc.p2BombCount--;
                     new Bomb(gc, 2500, p1Pos, false);
                     lastXButton = true;
@@ -442,7 +441,7 @@ namespace GameJam
                     gc.vibration.LeftMotorSpeed = (ushort)gc.vibrationLeftMotorSpeed;
                     gc.vibration.RightMotorSpeed = (ushort)gc.vibrationLeftMotorSpeed;
 
-                    controller.SetVibration(gc.vibration);
+                    gc.controller.SetVibration(gc.vibration);
                     gc.p2BombCount--;
                     new Bomb(gc, 2500, p1Pos, false);
                     lastYButton = true;

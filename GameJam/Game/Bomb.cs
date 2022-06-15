@@ -26,7 +26,6 @@ namespace GameJam
                     frames = gc.spriteMap.GetBombFrames(),
                     rectangle = new Rectangle((int)gc.player.rectangle.X, (int)gc.player.rectangle.Y, gc.tileSize, gc.tileSize),
                 };
-                //reset vibration for the controller player
             }
             else
             {
@@ -35,9 +34,6 @@ namespace GameJam
                     frames = gc.spriteMap.GetBombFrames(),
                     rectangle = new Rectangle((int)gc.player1.rectangle.X, (int)gc.player1.rectangle.Y, gc.tileSize, gc.tileSize),
                 };
-                gc.vibrationLeftMotorSpeed = 0;
-                gc.vibration.LeftMotorSpeed = (ushort)gc.vibrationLeftMotorSpeed;
-                gc.vibration.RightMotorSpeed = (ushort)gc.vibrationLeftMotorSpeed;
             }
             gc.bombs.Add(newBomb);
             StartTimer(miliSeconds, newBomb, gc, placePos);
@@ -63,6 +59,7 @@ namespace GameJam
 
         private void OnBombExplode()
         {
+
             AudioManager.PlaySound(Properties.Resources.explosion);
 
             CreateExplosion();

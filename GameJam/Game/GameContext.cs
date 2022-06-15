@@ -11,6 +11,7 @@
 
     public class GameContext {
 
+        public Controller controller;
         internal Vibration vibration = new Vibration();
         internal int vibrationLeftMotorSpeed;
         internal float p1BombCount =3;
