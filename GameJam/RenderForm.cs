@@ -98,6 +98,11 @@ namespace GameJam
                 frames = gc.GetSingeFrameArray('O'),
                 rectangle = new Rectangle(256, 224, gc.tileSize, gc.tileSize),
             };
+            gc.nukeSign = new RenderObject()
+            {
+                frames = gc.spriteMap.GetNukeSignFrames(),
+                rectangle = new Rectangle(128, 128, 35, 35),
+            };
 
         }
 
@@ -321,7 +326,7 @@ namespace GameJam
             CheckDamagep1();
             CheckDamagep2();
 
-            UpdateControllerInput();
+           // UpdateControllerInput();
     
             //controller.SetVibration(vibration);
 

@@ -97,6 +97,10 @@ namespace GameJam.Game
         internal Rectangle[] GetBombFrames() {
             return bombAnimation;
         }
+        internal Rectangle[] GetNukeSignFrames()
+        {
+            return nukeSignAnimation;
+        }
         internal Rectangle GetSprite(char tile) {
             return tileMap[tile];
         }
