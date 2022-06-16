@@ -36,22 +36,38 @@ namespace GameJam
                 };
             }
             gc.bombs.Add(newBomb);
-            StartTimer(miliSeconds, newBomb, gc, placePos);
+            StartTimer(miliSeconds, newBomb, gc, placePos, wichPlayer);
         }
 
-        public void StartTimer(int ms, RenderObject bomb, GameContext _gc, Vector2 _playerPos) {
+        public void StartTimer(int ms, RenderObject bomb, GameContext _gc, Vector2 _playerPos, bool player) {
             bombObj = bomb;
             gc = _gc;
             bombPos = _playerPos;
             playerPos = _playerPos;
 
+            Timer vibrationTimer = new Timer();
+            vibrationTimer.Interval = (250);
+            vibrationTimer.Tick += (sender, e) => DisableVibration(vibrationTimer, player);
+            vibrationTimer.Start();
+
             Timer MyTimer = new Timer();
             MyTimer.Interval = (ms);
-            MyTimer.Tick += (sender, e) => BombTimer(MyTimer);
+            MyTimer.Tick += (sender, e) => BombTimer(MyTimer, player);
             MyTimer.Start();
         }
+        private void DisableVibration(Timer timer, bool player)
+        {
+            timer.Dispose();
+            if (!player)
+            {
+                gc.vibrationLeftMotorSpeed = 0;
+                gc.vibration.LeftMotorSpeed = (ushort)gc.vibrationLeftMotorSpeed;
+                gc.vibration.RightMotorSpeed = (ushort)gc.vibrationLeftMotorSpeed;
 
-        private void BombTimer(Timer timer) {
+                gc.controller.SetVibration(gc.vibration);
+            }
+        }
+        private void BombTimer(Timer timer, bool player) {
             timer.Dispose();
             gc.bombs.Remove(bombObj);
             OnBombExplode();
@@ -59,7 +75,6 @@ namespace GameJam
 
         private void OnBombExplode()
         {
-
             AudioManager.PlaySound(Properties.Resources.explosion);
 
             CreateExplosion();
@@ -179,6 +194,8 @@ namespace GameJam
                 gc.explosionTiles.Add(leftRoofExplosion);
                 allTiles[8] = leftRoofExplosion;
             }
+
+
             Timer despawnTimer = new Timer();
             despawnTimer.Interval = (750);
             despawnTimer.Tick += (sender, e) => DespawnExplosion(despawnTimer, allTiles);

@@ -326,7 +326,7 @@ namespace GameJam
             CheckDamagep1();
             CheckDamagep2();
 
-           // UpdateControllerInput();
+            UpdateControllerInput();
     
             //controller.SetVibration(vibration);
 
