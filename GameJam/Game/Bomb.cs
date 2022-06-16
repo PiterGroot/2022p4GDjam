@@ -60,11 +60,7 @@ namespace GameJam
             timer.Dispose();
             if (!player)
             {
-                gc.vibrationLeftMotorSpeed = 0;
-                gc.vibration.LeftMotorSpeed = (ushort)gc.vibrationLeftMotorSpeed;
-                gc.vibration.RightMotorSpeed = (ushort)gc.vibrationLeftMotorSpeed;
-
-                gc.controller.SetVibration(gc.vibration);
+                gc.SetControllerVibration(0);
             }
         }
         private void BombTimer(Timer timer, bool player) {

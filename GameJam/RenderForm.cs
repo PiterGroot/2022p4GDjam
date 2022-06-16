@@ -20,7 +20,7 @@ namespace GameJam
         public Gamepad gamepad;
         private Vector2 p1Pos;
         private Vector2 p2Pos;
-        
+
         public static Size AppClientSize;
         private LevelLoader levelLoader;
         private float frametime;
@@ -120,7 +120,7 @@ namespace GameJam
                 MovePlayer(1, 0);
             }
            
-            else if (e.KeyCode == Keys.Enter)
+            else if (e.KeyCode == Keys.Space)
             {
                 if(gc.p1BombCount >= 1)
                 {
@@ -144,7 +144,7 @@ namespace GameJam
                 MovePlayer1(-1, 0);
             }   
 
-            else if (e.KeyCode == Keys.OemQuestion) {
+            else if (e.KeyCode == Keys.Enter) {
                 if(gc.p2BombCount >= 1)
                 {
                     gc.p2BombCount--;
@@ -222,11 +222,8 @@ namespace GameJam
             }
             else if (renderObject.frames[0] == gc.GetSingeFrameArray('N')[0])
             {
-                    Console.WriteLine("Found nuke");
-                if (!wichPlayer)
-                {
-                    new Nuke(gc, new Vector2(gc.player1.rectangle.X, gc.player1.rectangle.Y));
-                }
+                Console.WriteLine("Found nuke");
+                new Nuke(gc);
             }
             else if (renderObject.frames[0] == gc.GetSingeFrameArray('/')[0])
             {
@@ -325,7 +322,7 @@ namespace GameJam
             CheckDamagep1();
             CheckDamagep2();
 
-            UpdateControllerInput();
+            if(gc.controllerMode) UpdateControllerInput();
     
             //controller.SetVibration(vibration);
 
@@ -387,11 +384,8 @@ namespace GameJam
             {
                 if (gc.p2BombCount >= 1)
                 {
-                    gc.vibrationLeftMotorSpeed = CONTROLLER_RUMBLE;
-                    gc.vibration.LeftMotorSpeed = (ushort)gc.vibrationLeftMotorSpeed;
-                    gc.vibration.RightMotorSpeed = (ushort)gc.vibrationLeftMotorSpeed;
-
-                    gc.controller.SetVibration(gc.vibration);
+                    gc.SetControllerVibration(CONTROLLER_RUMBLE);
+                   
                     gc.p2BombCount--;
                     new Bomb(gc, 2500, p1Pos, false);
                     lastAButton = true;
@@ -405,11 +399,8 @@ namespace GameJam
             {
                 if (gc.p2BombCount >= 1)
                 {
-                    gc.vibrationLeftMotorSpeed = CONTROLLER_RUMBLE;
-                    gc.vibration.LeftMotorSpeed = (ushort)gc.vibrationLeftMotorSpeed;
-                    gc.vibration.RightMotorSpeed = (ushort)gc.vibrationLeftMotorSpeed;
+                    gc.SetControllerVibration(CONTROLLER_RUMBLE);
 
-                    gc.controller.SetVibration(gc.vibration);
                     gc.p2BombCount--;
                     new Bomb(gc, 2500, p1Pos, false);
                     lastBButton = true;
@@ -423,11 +414,8 @@ namespace GameJam
             {
                 if (gc.p2BombCount >= 1)
                 {
-                    gc.vibrationLeftMotorSpeed = CONTROLLER_RUMBLE;
-                    gc.vibration.LeftMotorSpeed = (ushort)gc.vibrationLeftMotorSpeed;
-                    gc.vibration.RightMotorSpeed = (ushort)gc.vibrationLeftMotorSpeed;
+                    gc.SetControllerVibration(CONTROLLER_RUMBLE);
 
-                    gc.controller.SetVibration(gc.vibration);
                     gc.p2BombCount--;
                     new Bomb(gc, 2500, p1Pos, false);
                     lastXButton = true;
@@ -441,11 +429,8 @@ namespace GameJam
             {
                 if (gc.p2BombCount >= 1)
                 {
-                    gc.vibrationLeftMotorSpeed = CONTROLLER_RUMBLE;
-                    gc.vibration.LeftMotorSpeed = (ushort)gc.vibrationLeftMotorSpeed;
-                    gc.vibration.RightMotorSpeed = (ushort)gc.vibrationLeftMotorSpeed;
+                    gc.SetControllerVibration(CONTROLLER_RUMBLE);
 
-                    gc.controller.SetVibration(gc.vibration);
                     gc.p2BombCount--;
                     new Bomb(gc, 2500, p1Pos, false);
                     lastYButton = true;
@@ -456,10 +441,6 @@ namespace GameJam
                 lastYButton = gamepad.Buttons.HasFlag(GamepadButtonFlags.Y);
             }
         }
-
-
-        
-
 
         protected override void OnPaint(PaintEventArgs e){
             base.OnPaint(e);

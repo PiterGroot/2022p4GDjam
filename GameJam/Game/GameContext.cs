@@ -31,6 +31,8 @@
         internal List<RenderObject> nukes = new List<RenderObject>();
         internal List<RenderObject> nukeSigns = new List<RenderObject>();
 
+        internal bool controllerMode = false;
+
         internal Rectangle[] GetSingeFrameArray(char singleSpriteGraphic)
         {
             Rectangle[] singleFrameArray = new Rectangle[1];
@@ -73,6 +75,14 @@
             {
                 scaleunit = 9;
             }
+        }
+        internal void SetControllerVibration(int speed)
+        {
+            if (!controllerMode) return;
+            vibrationLeftMotorSpeed = speed;
+            vibration.LeftMotorSpeed = (ushort)vibrationLeftMotorSpeed;
+            vibration.RightMotorSpeed = (ushort)vibrationLeftMotorSpeed;
+            controller.SetVibration(vibration);
         }
     }
 
