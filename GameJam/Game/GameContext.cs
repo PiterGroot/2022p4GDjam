@@ -26,10 +26,11 @@
         internal RenderObject player1 = new RenderObject();
         internal RenderObject p1Heart = new RenderObject();
         internal RenderObject p2Heart = new RenderObject();
-        internal RenderObject nukeSign = new RenderObject();
         internal SpriteMap spriteMap = new SpriteMap();
         internal Room room;
-        
+        internal List<RenderObject> nukes = new List<RenderObject>();
+        internal List<RenderObject> nukeSigns = new List<RenderObject>();
+
         internal Rectangle[] GetSingeFrameArray(char singleSpriteGraphic)
         {
             Rectangle[] singleFrameArray = new Rectangle[1];

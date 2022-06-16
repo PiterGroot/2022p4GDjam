@@ -60,7 +60,15 @@ namespace GameJam.Game
                 {
                     RenderObject(g, powerUps);
                 }
-                RenderObject(g, context.nukeSign);
+                foreach (RenderObject nuke in context.nukes)
+                {
+                    RenderObject(g, nuke);
+                }
+                foreach (RenderObject nukeSign in context.nukeSigns)
+                {
+                    RenderObject(g, nukeSign);
+                }
+                
                 RenderObject(g, context.player);
                 RenderObject(g, context.player1);
                 RenderObject(g, context.p1Heart);

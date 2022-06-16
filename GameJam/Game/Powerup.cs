@@ -35,7 +35,7 @@ namespace GameJam.Game
             Console.WriteLine("Trying this powerup " + thisPowerUpChar);
             RenderObject newPowerup = new RenderObject()
             {
-                frames = gc.GetSingeFrameArray(thisPowerUpChar),
+                frames = gc.GetSingeFrameArray('N'),
                 rectangle = new Rectangle((int)position.x, (int)position.y, gc.tileSize, gc.tileSize),
             };
             gc.powerUps.Add(newPowerup);

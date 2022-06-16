@@ -98,11 +98,6 @@ namespace GameJam
                 frames = gc.GetSingeFrameArray('O'),
                 rectangle = new Rectangle(256, 224, gc.tileSize, gc.tileSize),
             };
-            gc.nukeSign = new RenderObject()
-            {
-                frames = gc.spriteMap.GetNukeSignFrames(),
-                rectangle = new Rectangle(128, 128, 35, 35),
-            };
 
         }
 
@@ -227,7 +222,11 @@ namespace GameJam
             }
             else if (renderObject.frames[0] == gc.GetSingeFrameArray('N')[0])
             {
-                Console.WriteLine("Found nuke");
+                    Console.WriteLine("Found nuke");
+                if (!wichPlayer)
+                {
+                    new Nuke(gc, new Vector2(gc.player1.rectangle.X, gc.player1.rectangle.Y));
+                }
             }
             else if (renderObject.frames[0] == gc.GetSingeFrameArray('/')[0])
             {

@@ -245,7 +245,7 @@ namespace GameJam
         {
             tile.graphic = '.';
             tile.sprite = gc.spriteMap.GetSprite('.');
-            if(GetRandomChance(25))
+            if(GetRandomChance(100))
             {
                 new Powerup(gc, new Vector2(tile.rectangle.X, tile.rectangle.Y));
             }
