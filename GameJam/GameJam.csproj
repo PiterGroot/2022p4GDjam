@@ -155,6 +155,7 @@
     <None Include="Resources\winner.wav" />
     <None Include="Resources\winner %281%29.wav" />
     <None Include="Resources\playerwinner.wav" />
+    <None Include="Resources\nuke.wav" />
     <Content Include="sprites.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
