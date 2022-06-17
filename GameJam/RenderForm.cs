@@ -234,8 +234,8 @@ namespace GameJam
             else if (renderObject.frames[0] == gc.GetSingeFrameArray('B')[0])
             {
                 Console.WriteLine("Found bomb");
-                if (wichPlayer) gc.p1BombCount++; //p1 
-                else gc.p2BombCount++; //p2
+                if (wichPlayer) gc.maxBombP1++; //p1 
+                else gc.maxBombP2++; //p2
             }
             else if (renderObject.frames[0] == gc.GetSingeFrameArray('J')[0])
             {
@@ -322,8 +322,6 @@ namespace GameJam
             CheckDamagep2();
 
             if(gc.controllerMode && !renderer.wonGame && gc.controller.IsConnected) UpdateControllerInput();
-    
-            //controller.SetVibration(vibration);
 
             this.frametime = frametime;
             AppClientSize = new Size(

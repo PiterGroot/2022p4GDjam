@@ -31,6 +31,8 @@
         internal List<RenderObject> nukes = new List<RenderObject>();
         internal List<RenderObject> nukeSigns = new List<RenderObject>();
         internal GameRenderer renderer;
+        internal int maxBombP1 = 2;
+        internal int maxBombP2 = 2;
 
         internal bool controllerMode = true;
 
@@ -50,11 +52,11 @@
         internal void ReloadNow(Timer mytimer)
         {
             mytimer.Dispose();
-            if (p1BombCount <= 2)
+            if (p1BombCount <= maxBombP1)
             {
                 p1BombCount++;
             }
-            if(p2BombCount <= 2)
+            if(p2BombCount <= maxBombP2)
             {
                 p2BombCount++;
             }

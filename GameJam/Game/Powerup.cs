@@ -23,10 +23,10 @@ namespace GameJam.Game
                     thisPowerUpChar = 'N';
                     break;
                 case PowerUpType.Jump:
-                    thisPowerUpChar = 'J';
+                    thisPowerUpChar = 'B';
                     break;
                 case PowerUpType.Shield:
-                    thisPowerUpChar = 'S';
+                    thisPowerUpChar = 'B';
                     break;
                 case PowerUpType.BombStealer:
                     thisPowerUpChar = '/';
@@ -35,7 +35,7 @@ namespace GameJam.Game
             Console.WriteLine("Trying this powerup " + thisPowerUpChar);
             RenderObject newPowerup = new RenderObject()
             {
-                frames = gc.GetSingeFrameArray('N'),
+                frames = gc.GetSingeFrameArray(thisPowerUpChar),
                 rectangle = new Rectangle((int)position.x, (int)position.y, gc.tileSize, gc.tileSize),
             };
             gc.powerUps.Add(newPowerup);
