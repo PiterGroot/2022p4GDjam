@@ -20,6 +20,8 @@ namespace GameJam
         public GameRenderer renderer;
         private readonly GameContext gc = new GameContext();
         private const int CONTROLLER_RUMBLE = 65000;
+
+        public bool canMoveP1 = true, canMoveP2 = true;
         public RenderForm()
         {
             InitializeComponent();
@@ -97,55 +99,67 @@ namespace GameJam
 
         private void RenderForm_KeyDown(object sender, KeyEventArgs e)
         {
-            //first player controls
-            if (e.KeyCode == Keys.W) { 
-                MovePlayer(0, -1);
-            }
-            else if (e.KeyCode == Keys.S)
+            if (canMoveP1)
             {
-                MovePlayer(0, 1);
-            }
-            else if (e.KeyCode == Keys.A)
-            {
-                MovePlayer(-1, 0);
-            }
-            else if (e.KeyCode == Keys.D)
-            {
-                MovePlayer(1, 0);
-            }
-           
-            else if (e.KeyCode == Keys.Space)
-            {
-                if(gc.p1BombCount >= 1 && !renderer.wonGame)
+                //first player controls
+                if (e.KeyCode == Keys.W)
                 {
-                    gc.p1BombCount--;
-                    new Bomb(gc, 2500, p2Pos, true);
-                    Console.WriteLine("BOMB placed at : " + p2Pos.x + " " + p2Pos.y);
+                    MovePlayer(0, -1);
+                }
+                else if (e.KeyCode == Keys.S)
+                {
+                    MovePlayer(0, 1);
+                }
+                else if (e.KeyCode == Keys.A)
+                {
+                    MovePlayer(-1, 0);
+                }
+                else if (e.KeyCode == Keys.D)
+                {
+                    MovePlayer(1, 0);
+                }
+
+                else if (e.KeyCode == Keys.Space)
+                {
+                    if (gc.p1BombCount >= 1 && !renderer.wonGame)
+                    {
+                        gc.p1BombCount--;
+                        new Bomb(gc, 2500, p2Pos, true);
+                        Console.WriteLine("BOMB placed at : " + p2Pos.x + " " + p2Pos.y);
+                    }
+                }
+            }
+            if (canMoveP2)
+            {
+                //second player controls
+                if (e.KeyCode == Keys.Up)
+                {
+                    MovePlayer1(0, -1);
+                }
+                else if (e.KeyCode == Keys.Right)
+                {
+                    MovePlayer1(1, 0);
+                }
+                else if (e.KeyCode == Keys.Down)
+                {
+                    MovePlayer1(0, 1);
+                }
+                else if (e.KeyCode == Keys.Left)
+                {
+                    MovePlayer1(-1, 0);
+                }
+
+                else if (e.KeyCode == Keys.Enter)
+                {
+                    if (gc.p2BombCount >= 1 && !renderer.wonGame)
+                    {
+                        gc.p2BombCount--;
+                        new Bomb(gc, 2500, p1Pos, false);
+                        Console.WriteLine("BOMB placed at : " + p1Pos.x + " " + p1Pos.y);
+                    }
                 }
             }
 
-            //second player controls
-            else if (e.KeyCode == Keys.Up) {
-                MovePlayer1(0, -1);
-            }
-            else if (e.KeyCode == Keys.Right) {
-                MovePlayer1(1, 0);
-            }
-            else if (e.KeyCode == Keys.Down) {
-                MovePlayer1(0, 1);
-            }
-            else if (e.KeyCode == Keys.Left) {
-                MovePlayer1(-1, 0);
-            }   
-
-            else if (e.KeyCode == Keys.Enter) {
-                if(gc.p2BombCount >= 1 && !renderer.wonGame)
-                {
-                    gc.p2BombCount--;
-                    new Bomb(gc, 2500, p1Pos, false);
-                    Console.WriteLine("BOMB placed at : " + p1Pos.x + " " + p1Pos.y);
-                }
-            }
 
             else if (e.KeyCode == Keys.Subtract)
             {
@@ -240,7 +254,15 @@ namespace GameJam
             }
             else if (renderObject.frames[0] == gc.GetSingeFrameArray('J')[0])
             {
-                Console.WriteLine("Found jump");
+                Console.WriteLine("Found freeze");
+                if (wichPlayer)
+                {
+                    new Freeze(gc, this, false);
+                }
+                else
+                {
+                    new Freeze(gc, this, true);
+                }
             }
         }
 
@@ -322,7 +344,7 @@ namespace GameJam
             CheckDamagep1();
             CheckDamagep2();
 
-            if(gc.controllerMode && !renderer.wonGame && gc.controller.IsConnected) UpdateControllerInput();
+            if(gc.controllerMode && !renderer.wonGame && canMoveP2 && gc.controller.IsConnected) UpdateControllerInput();
 
             this.frametime = frametime;
             AppClientSize = new Size(

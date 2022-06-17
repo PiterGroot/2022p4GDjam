@@ -36,7 +36,7 @@ namespace GameJam.Game
             //power ups
             tileMap.Add('B', new Rectangle(66, 91, 16, 16));
             tileMap.Add('N', new Rectangle(86, 93, 16, 16));
-            tileMap.Add('J', new Rectangle(140, 93, 16, 16));
+            tileMap.Add('J', new Rectangle(142, 92, 16, 16));
             tileMap.Add('/', new Rectangle(122, 93, 16, 16));
             tileMap.Add('S', new Rectangle(103, 92, 16, 16));
 
@@ -57,6 +57,10 @@ namespace GameJam.Game
             tileMap.Add('V', new Rectangle(36, 158, 16, 16));
             tileMap.Add('<', new Rectangle(4, 126, 16, 16));
             tileMap.Add('x', new Rectangle(36, 126, 16, 16));
+
+            //freeze players
+            tileMap.Add('F', new Rectangle(26, 9, 15, 16)); //p1
+            tileMap.Add('f', new Rectangle(26, 27, 15, 16)); //p2
 
             nukeSignAnimation = new Rectangle[] {
                 new Rectangle(88, 116, 30, 29),

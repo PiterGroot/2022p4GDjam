@@ -1,7 +1,7 @@
 ﻿public enum PowerUpType
 {
     ExtraBomb,
-    Jump,
+    Freeze,
     Nuke,
     Shield,
     BombStealer

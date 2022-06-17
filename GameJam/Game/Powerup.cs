@@ -22,8 +22,8 @@ namespace GameJam.Game
                 case PowerUpType.Nuke:
                     thisPowerUpChar = 'N';
                     break;
-                case PowerUpType.Jump:
-                    thisPowerUpChar = 'B';
+                case PowerUpType.Freeze:
+                    thisPowerUpChar = 'J';
                     break;
                 case PowerUpType.Shield:
                     thisPowerUpChar = '/';

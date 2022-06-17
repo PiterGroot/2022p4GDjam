@@ -90,6 +90,15 @@ namespace GameJam.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         /// </summary>
+        internal static System.IO.UnmanagedMemoryStream freeze {
+            get {
+                return ResourceManager.GetStream("freeze", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
         internal static System.IO.UnmanagedMemoryStream nuke {
             get {
                 return ResourceManager.GetStream("nuke", resourceCulture);

@@ -119,7 +119,7 @@ namespace GameJam.Game
         {
             if (tile == null) return;
             bool destroyWall = false;
-            if (rnd.Next(1, 101) <= 35) destroyWall = true;
+            if (rnd.Next(1, 101) <= 15) destroyWall = true;
             if (!destroyWall)
             {
                 if (tile.graphic != 'W' && tile.graphic != '#')
