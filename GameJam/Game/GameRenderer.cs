@@ -116,7 +116,7 @@ namespace GameJam.Game
             {
                 foreach (Tile t in row)
                 {
-                    if (t.graphic == '#' || t.graphic == ',')
+                    if (t.graphic == '#' || t.graphic == ',' || t.graphic == 'W' || t.graphic == 'K')
                     {
                         g.DrawImage(image, t.rectangle, t.sprite, GraphicsUnit.Pixel);
                     }

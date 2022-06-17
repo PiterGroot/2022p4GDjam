@@ -202,7 +202,7 @@ namespace GameJam
         {
             Tile next = gc.room.tiles.SelectMany(ty => ty.Where(tx => tx.rectangle.Contains((int)pos.x, (int)pos.y))).FirstOrDefault();
             if (next == null) return;
-            if (next.graphic == '#')
+            if (next.graphic == '#' || next.graphic == 'W')
             {
                 switch (direction)
                 {

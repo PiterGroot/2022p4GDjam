@@ -24,7 +24,7 @@ namespace GameJam
         public static Size AppClientSize;
         private LevelLoader levelLoader;
         private float frametime;
-        private GameRenderer renderer;
+        public GameRenderer renderer;
         private readonly GameContext gc = new GameContext();
         private const int CONTROLLER_RUMBLE = 65000;
         public RenderForm()
@@ -59,6 +59,7 @@ namespace GameJam
 
             renderer = new GameRenderer(gc);
 
+            gc.renderer = renderer;
             gc.room = levelLoader.GetRoom(0, 0);
             InstantiateRenderObjects();
             ClientSize =
@@ -122,7 +123,7 @@ namespace GameJam
            
             else if (e.KeyCode == Keys.Space)
             {
-                if(gc.p1BombCount >= 1)
+                if(gc.p1BombCount >= 1 && !renderer.wonGame)
                 {
                     gc.p1BombCount--;
                     new Bomb(gc, 2500, p2Pos, true);
@@ -145,7 +146,7 @@ namespace GameJam
             }   
 
             else if (e.KeyCode == Keys.Enter) {
-                if(gc.p2BombCount >= 1)
+                if(gc.p2BombCount >= 1 && !renderer.wonGame)
                 {
                     gc.p2BombCount--;
                     new Bomb(gc, 2500, p1Pos, false);
@@ -185,15 +186,14 @@ namespace GameJam
                         return;
                     }
                 }
-                if (next.graphic != '#' && next.graphic != ',')
+                if (next.graphic != '#' && next.graphic != ',' && next.graphic != 'W')
                 {
                     foreach (RenderObject renderObject in gc.explosionTiles)
                     {
                         if (newx == (int)renderObject.rectangle.X && newy == (int)renderObject.rectangle.Y && !renderer.wonGame)
                         {
                             Console.WriteLine("Player 1 is dead");
-                            gc.winner = "Player 2";
-                            renderer.wonGame = true;
+                            gc.KillPlayer(true);
                         }
                     }
                     for (int i = gc.powerUps.Count -1; i >= 0; i--)
@@ -223,7 +223,7 @@ namespace GameJam
             else if (renderObject.frames[0] == gc.GetSingeFrameArray('N')[0])
             {
                 Console.WriteLine("Found nuke");
-                new Nuke(gc);
+                new Nuke(gc, this);
             }
             else if (renderObject.frames[0] == gc.GetSingeFrameArray('/')[0])
             {
@@ -258,14 +258,13 @@ namespace GameJam
                         return;
                     }
                 }
-                if (next.graphic != '#' && next.graphic != ',') {
+                if (next.graphic != '#' && next.graphic != ',' && next.graphic != 'W') {
                     foreach (RenderObject renderObject in gc.explosionTiles)
                     {
                         if (newx == (int)renderObject.rectangle.X && newy == (int)renderObject.rectangle.Y && !renderer.wonGame)
                         {
                             Console.WriteLine("Player 2 is dead");
-                            gc.winner = "Player 1";
-                            renderer.wonGame = true;
+                            gc.KillPlayer(false);
                         }
                     }
                     for (int i = gc.powerUps.Count - 1; i >= 0; i--)
@@ -295,10 +294,10 @@ namespace GameJam
                     if (gc.player.rectangle.X == (int)renderObject.rectangle.X && gc.player.rectangle.Y == (int)renderObject.rectangle.Y && !renderer.wonGame)
                     {
                         Console.WriteLine("Player 1 is dead!");
-                        gc.winner = "Player 2";
-                        renderer.wonGame = true;
+                        gc.KillPlayer(true);
                     }
                 }
+                if(current.graphic == 'K') gc.KillPlayer(true);
             }
         }
         private void CheckDamagep2()
@@ -311,10 +310,10 @@ namespace GameJam
                     if (gc.player1.rectangle.X == (int)renderObject.rectangle.X && gc.player1.rectangle.Y == (int)renderObject.rectangle.Y && !renderer.wonGame)
                     {
                         Console.WriteLine("Player 2 is dead!");
-                        gc.winner = "Player 1";
-                        renderer.wonGame = true;
+                        gc.KillPlayer(false);
                     }
                 }
+                if (current.graphic == 'K') gc.KillPlayer(false);
             }
         }
         public void Logic(float frametime)
@@ -322,7 +321,7 @@ namespace GameJam
             CheckDamagep1();
             CheckDamagep2();
 
-            if(gc.controllerMode) UpdateControllerInput();
+            if(gc.controllerMode && !renderer.wonGame) UpdateControllerInput();
     
             //controller.SetVibration(vibration);
 

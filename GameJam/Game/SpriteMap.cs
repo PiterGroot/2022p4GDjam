@@ -31,12 +31,18 @@ namespace GameJam.Game
             tileMap.Add('!', new Rectangle(66, 75, 16, 16));
             tileMap.Add('O', new Rectangle(148, 74, 15, 15));
             tileMap.Add('0', new Rectangle(132, 74, 15, 15));
+            tileMap.Add('K', new Rectangle(4, 92, 16, 16));
 
+            //power ups
             tileMap.Add('B', new Rectangle(66, 91, 16, 16));
             tileMap.Add('N', new Rectangle(86, 93, 16, 16));
             tileMap.Add('J', new Rectangle(140, 93, 16, 16));
             tileMap.Add('/', new Rectangle(122, 93, 16, 16));
             tileMap.Add('S', new Rectangle(103, 92, 16, 16));
+
+            //undestroyable walls
+            tileMap.Add('Q', new Rectangle(193, 15, 80, 82));
+            tileMap.Add('W', new Rectangle(4, 57, 16, 16));
 
             //explosion tiles
             //                   ^
@@ -51,8 +57,6 @@ namespace GameJam.Game
             tileMap.Add('V', new Rectangle(36, 158, 16, 16));
             tileMap.Add('<', new Rectangle(4, 126, 16, 16));
             tileMap.Add('x', new Rectangle(36, 126, 16, 16));
-            tileMap.Add('Q', new Rectangle(193, 15, 80, 82));
-
 
             nukeSignAnimation = new Rectangle[] {
                 new Rectangle(88, 116, 30, 29),

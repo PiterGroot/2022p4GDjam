@@ -10,11 +10,13 @@ namespace GameJam.Game
 {
     class Nuke
     {
+        private RenderForm renderForm;
         private GameContext context;
         private Random rnd = new Random();
-        public Nuke(GameContext gc)
+        public Nuke(GameContext gc, RenderForm rf)
         {
             context = gc;
+            renderForm = rf;
 
             Tile[] tiles = gc.room.GetAllTiles();
             Tile randomTile = tiles[rnd.Next(0, tiles.Length)];
@@ -22,12 +24,12 @@ namespace GameJam.Game
             RenderObject nukeSign = new RenderObject()
             {
                 frames = gc.spriteMap.GetNukeSignFrames(),
-                rectangle = new Rectangle(randomTile.rectangle.X +8, randomTile.rectangle.Y + 8, 35, 35)
+                rectangle = new Rectangle(randomTile.rectangle.X, randomTile.rectangle.Y, 55, 55)
             };
             gc.nukeSigns.Add(nukeSign);
 
             Timer spawnTimer = new Timer();
-            spawnTimer.Interval = (2500);
+            spawnTimer.Interval = (3500);
             spawnTimer.Tick += (sender, e) => SpawnNuke(spawnTimer, randomTile.rectangle.X, randomTile.rectangle.Y, nukeSign, gc);
             spawnTimer.Start();
         }
@@ -42,11 +44,12 @@ namespace GameJam.Game
                 rectangle = new Rectangle(x - 16, y - 16, 80, 82),
             };
             context.nukes.Add(nuke);
-
+           
             Timer despawnTimer = new Timer();
             despawnTimer.Interval = (2500);
             despawnTimer.Tick += (sender, e) => DespawnNuke(spawnTimer, gc, nuke);
             despawnTimer.Start();
+
             HandleExplosion(new Vector2(x, y), gc);
         }
 
@@ -119,9 +122,20 @@ namespace GameJam.Game
             if (tile.graphic != 'W')
             {
                 tile.sprite = gc.spriteMap.GetSprite('.');
-                tile.graphic = '.';
+                tile.graphic = 'K';
+
+                Timer resetTileTimer = new Timer();
+                resetTileTimer.Interval = (2500);
+                resetTileTimer.Tick += (sender, e) => ResetFloorTiles(resetTileTimer, tile);
+                resetTileTimer.Start();
             }
         }
+        private void ResetFloorTiles(Timer timer, Tile tile)
+        {
+            timer.Dispose();
+            tile.graphic = '.';
+        }
+
         private Tile GetTileInfo(Vector2 position, GameContext gc)
         {
             return gc.room.tiles.SelectMany(ty => ty.Where(tx => tx.rectangle.Contains((int)position.x, (int)position.y))).FirstOrDefault();

@@ -30,8 +30,9 @@
         internal Room room;
         internal List<RenderObject> nukes = new List<RenderObject>();
         internal List<RenderObject> nukeSigns = new List<RenderObject>();
+        internal GameRenderer renderer;
 
-        internal bool controllerMode = false;
+        internal bool controllerMode = true;
 
         internal Rectangle[] GetSingeFrameArray(char singleSpriteGraphic)
         {
@@ -83,6 +84,29 @@
             vibration.LeftMotorSpeed = (ushort)vibrationLeftMotorSpeed;
             vibration.RightMotorSpeed = (ushort)vibrationLeftMotorSpeed;
             controller.SetVibration(vibration);
+        }
+
+        internal void KillPlayer(bool player = true)
+        {
+            Timer killTimer = new Timer();
+            killTimer.Interval = (150);
+            killTimer.Tick += (sender, e) => TriggerEndGame(killTimer);
+            killTimer.Start();
+            if (player)
+            {
+                winner = "Player 2";
+                //player 1
+            }
+            else
+            {
+                winner = "Player 1";
+                //player 2
+            }
+        }
+        internal void TriggerEndGame(Timer timer)
+        {
+            timer.Dispose();
+            renderer.wonGame = true;
         }
     }
 
