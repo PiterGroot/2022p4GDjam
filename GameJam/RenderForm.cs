@@ -1,20 +1,13 @@
 using GameJam.Game;
 using GameJam.Tools;
 using System;
-using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using System.Media;
-using System.IO;
-using System.Collections.Generic;
-using MathNet;
 using SharpDX.XInput;
-using SharpDX.DirectInput;
 
 namespace GameJam
 {
-
     public partial class RenderForm : Form
     {
         public Gamepad gamepad;

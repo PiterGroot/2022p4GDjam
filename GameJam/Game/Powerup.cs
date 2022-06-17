@@ -26,7 +26,7 @@ namespace GameJam.Game
                     thisPowerUpChar = 'B';
                     break;
                 case PowerUpType.Shield:
-                    thisPowerUpChar = 'B';
+                    thisPowerUpChar = '/';
                     break;
                 case PowerUpType.BombStealer:
                     thisPowerUpChar = '/';

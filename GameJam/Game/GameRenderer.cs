@@ -73,8 +73,8 @@ namespace GameJam.Game
                 RenderObject(g, context.player1);
                 RenderObject(g, context.p1Heart);
                 RenderObject(g, context.p2Heart);
-                g.DrawString($"{context.p1BombCount}", tinyFont, Brush, -16, 0);
-                g.DrawString($"{context.p2BombCount}", tinyFont, Brush, 272, 224);
+                g.DrawString($"{context.p1BombCount} / {context.maxBombP1 + 1}", tinyFont, Brush, -32, 0);
+                g.DrawString($"{context.p2BombCount} / {context.maxBombP2 + 1}", tinyFont, Brush, 272, 224);
             }
             else if(wonGame && canWin)
             {

@@ -42,6 +42,7 @@ namespace GameJam.Game
                 rectangle = new Rectangle(x - 16, y - 16, 80, 82),
             };
             context.nukes.Add(nuke);
+            context.SetControllerVibration(65000);
            
             Timer despawnTimer = new Timer();
             despawnTimer.Interval = (2500);
@@ -142,6 +143,7 @@ namespace GameJam.Game
         {
             despawnTimer.Dispose();
             gc.nukes.Remove(nuke);
+            context.SetControllerVibration(0);
         }
     }
 }
