@@ -321,7 +321,7 @@ namespace GameJam
             CheckDamagep1();
             CheckDamagep2();
 
-            if(gc.controllerMode && !renderer.wonGame) UpdateControllerInput();
+            if(gc.controllerMode && !renderer.wonGame && gc.controller.IsConnected) UpdateControllerInput();
     
             //controller.SetVibration(vibration);
 

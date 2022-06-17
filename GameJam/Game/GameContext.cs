@@ -79,7 +79,7 @@
         }
         internal void SetControllerVibration(int speed)
         {
-            if (!controllerMode) return;
+            if (!controllerMode || !controller.IsConnected) return;
             vibrationLeftMotorSpeed = speed;
             vibration.LeftMotorSpeed = (ushort)vibrationLeftMotorSpeed;
             vibration.RightMotorSpeed = (ushort)vibrationLeftMotorSpeed;

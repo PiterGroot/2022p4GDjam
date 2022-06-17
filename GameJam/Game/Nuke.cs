@@ -10,13 +10,11 @@ namespace GameJam.Game
 {
     class Nuke
     {
-        private RenderForm renderForm;
         private GameContext context;
         private Random rnd = new Random();
         public Nuke(GameContext gc, RenderForm rf)
         {
             context = gc;
-            renderForm = rf;
 
             Tile[] tiles = gc.room.GetAllTiles();
             Tile randomTile = tiles[rnd.Next(0, tiles.Length)];
