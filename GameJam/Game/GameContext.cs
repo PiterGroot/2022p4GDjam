@@ -31,6 +31,9 @@
         internal List<RenderObject> nukes = new List<RenderObject>();
         internal List<RenderObject> nukeSigns = new List<RenderObject>();
         internal GameRenderer renderer;
+
+        internal int bombRegenTimer = 5000;
+
         internal int maxBombP1 = 2;
         internal int maxBombP2 = 2;
 
@@ -45,7 +48,7 @@
         internal void ReloadBombs()
         {
             Timer MyTimer = new Timer();
-            MyTimer.Interval = (5000);
+            MyTimer.Interval = (bombRegenTimer);
             MyTimer.Tick += (sender, e) => ReloadNow(MyTimer);
             MyTimer.Start();
         }
@@ -60,6 +63,7 @@
             {
                 p2BombCount++;
             }
+            if(bombRegenTimer >= 1000) bombRegenTimer -= 10; 
             ReloadBombs();
         }
 

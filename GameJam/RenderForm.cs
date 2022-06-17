@@ -221,8 +221,16 @@ namespace GameJam
             else if (renderObject.frames[0] == gc.GetSingeFrameArray('/')[0])
             {
                 Console.WriteLine("Found steal");
-                if (wichPlayer) gc.p2BombCount = 0; //p1 
-                else gc.p1BombCount = 0; //p2
+                if (wichPlayer)
+                {
+                    gc.p2BombCount = 0; //p1 
+                    if (gc.maxBombP2 >= 1) gc.maxBombP2--;
+                }
+                else
+                {
+                    gc.p1BombCount = 0; //p2
+                    if (gc.maxBombP1 >= 1) gc.maxBombP1--;
+                }
             }
             else if (renderObject.frames[0] == gc.GetSingeFrameArray('B')[0])
             {

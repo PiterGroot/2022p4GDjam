@@ -118,15 +118,33 @@ namespace GameJam.Game
         private void DestroyTile(Tile tile, Vector2 position, GameContext gc)
         {
             if (tile == null) return;
-            if (tile.graphic != 'W')
+            bool destroyWall = false;
+            if (rnd.Next(1, 101) <= 35) destroyWall = true;
+            if (!destroyWall)
             {
-                tile.sprite = gc.spriteMap.GetSprite('.');
-                tile.graphic = 'K';
+                if (tile.graphic != 'W' && tile.graphic != '#')
+                {
+                    tile.sprite = gc.spriteMap.GetSprite('.');
+                    tile.graphic = 'K';
 
-                Timer resetTileTimer = new Timer();
-                resetTileTimer.Interval = (2500);
-                resetTileTimer.Tick += (sender, e) => ResetFloorTiles(resetTileTimer, tile);
-                resetTileTimer.Start();
+                    Timer resetTileTimer = new Timer();
+                    resetTileTimer.Interval = (2500);
+                    resetTileTimer.Tick += (sender, e) => ResetFloorTiles(resetTileTimer, tile);
+                    resetTileTimer.Start();
+                }
+            }
+            else
+            {
+                if (tile.graphic != 'W')
+                {
+                    tile.sprite = gc.spriteMap.GetSprite('.');
+                    tile.graphic = 'K';
+
+                    Timer resetTileTimer = new Timer();
+                    resetTileTimer.Interval = (2500);
+                    resetTileTimer.Tick += (sender, e) => ResetFloorTiles(resetTileTimer, tile);
+                    resetTileTimer.Start();
+                }
             }
         }
         private void ResetFloorTiles(Timer timer, Tile tile)
