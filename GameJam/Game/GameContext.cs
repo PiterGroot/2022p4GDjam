@@ -14,8 +14,10 @@
         public Controller controller;
         internal Vibration vibration = new Vibration();
         internal int vibrationLeftMotorSpeed;
-        internal float p1BombCount =3;
-        internal float p2BombCount =3;
+        internal int p1freezeCount = 0;
+        internal int p2freezeCount = 0;
+        internal int p1BombCount =3;
+        internal int p2BombCount =3;
         internal List<RenderObject> bombs = new List<RenderObject>();
         internal List<RenderObject> explosionTiles = new List<RenderObject>();
         internal List<RenderObject> powerUps = new List<RenderObject>();
@@ -26,6 +28,8 @@
         internal RenderObject player1 = new RenderObject();
         internal RenderObject p1Heart = new RenderObject();
         internal RenderObject p2Heart = new RenderObject();
+        internal RenderObject p1Freeze = new RenderObject();
+        internal RenderObject p2Freeze = new RenderObject();
         internal SpriteMap spriteMap = new SpriteMap();
         internal Room room;
         internal List<RenderObject> nukes = new List<RenderObject>();
@@ -63,7 +67,7 @@
             {
                 p2BombCount++;
             }
-            if(bombRegenTimer >= 1000) bombRegenTimer -= 10; 
+            if(bombRegenTimer >= 750) bombRegenTimer -= 10; 
             ReloadBombs();
         }
 

@@ -87,14 +87,23 @@ namespace GameJam
             gc.p1Heart = new RenderObject()
             {
                 frames = gc.GetSingeFrameArray('O'),
-                rectangle = new Rectangle(0, 0, gc.tileSize, gc.tileSize),
+                rectangle = new Rectangle(-16, 0, gc.tileSize, gc.tileSize),
             };
             gc.p2Heart = new RenderObject()
             {
                 frames = gc.GetSingeFrameArray('O'),
-                rectangle = new Rectangle(256, 224, gc.tileSize, gc.tileSize),
+                rectangle = new Rectangle(272, 224, gc.tileSize, gc.tileSize),
             };
-
+            gc.p1Freeze = new RenderObject()
+            {
+                frames = gc.GetSingeFrameArray('J'),
+                rectangle = new Rectangle(-16, 16, gc.tileSize, gc.tileSize),
+            };
+            gc.p2Freeze = new RenderObject()
+            {
+                frames = gc.GetSingeFrameArray('J'),
+                rectangle = new Rectangle(272, 208, gc.tileSize, gc.tileSize),
+            };
         }
 
         private void RenderForm_KeyDown(object sender, KeyEventArgs e)
@@ -128,6 +137,14 @@ namespace GameJam
                         Console.WriteLine("BOMB placed at : " + p2Pos.x + " " + p2Pos.y);
                     }
                 }
+                else if(e.KeyCode == Keys.ShiftKey)
+                {
+                    if(gc.p1freezeCount > 0 && canMoveP2)
+                    {
+                        gc.p1freezeCount--;
+                        new Freeze(gc, this, false);
+                    }
+                }
             }
             if (canMoveP2)
             {
@@ -158,14 +175,22 @@ namespace GameJam
                         Console.WriteLine("BOMB placed at : " + p1Pos.x + " " + p1Pos.y);
                     }
                 }
+                else if (e.KeyCode == Keys.Delete)
+                {
+                    if (gc.p2freezeCount > 0 && canMoveP1)
+                    {
+                        gc.p2freezeCount--;
+                        new Freeze(gc, this, true);
+                    }
+                }
             }
 
 
-            else if (e.KeyCode == Keys.Subtract)
+            if (e.KeyCode == Keys.Subtract)
             {
                 gc.SetRenderScale(-1);
             }
-            else if (e.KeyCode == Keys.Add)
+            if (e.KeyCode == Keys.Add)
             {
                 gc.SetRenderScale(1);
             }
@@ -257,11 +282,11 @@ namespace GameJam
                 Console.WriteLine("Found freeze");
                 if (wichPlayer)
                 {
-                    new Freeze(gc, this, false);
+                    gc.p1freezeCount++;
                 }
                 else
                 {
-                    new Freeze(gc, this, true);
+                    gc.p2freezeCount++;
                 }
             }
         }
@@ -362,6 +387,7 @@ namespace GameJam
         bool lastBButton;
         bool lastXButton;
         bool lastYButton;
+        bool lastRightThumb;
         private void UpdateControllerInput(){
             gamepad = gc.controller.GetState().Gamepad;
             if (gamepad.Buttons.HasFlag(GamepadButtonFlags.DPadRight) && lastKeyPressRight == false)
@@ -459,6 +485,19 @@ namespace GameJam
             else
             {
                 lastYButton = gamepad.Buttons.HasFlag(GamepadButtonFlags.Y);
+            }
+            if (gamepad.Buttons.HasFlag(GamepadButtonFlags.RightThumb) && lastRightThumb == false)
+            {
+                if (gc.p2freezeCount > 0 && canMoveP1)
+                {
+                    gc.p2freezeCount--;
+                    new Freeze(gc, this, true);
+                }
+                lastRightThumb = true;
+            }
+            else
+            {
+                lastRightThumb = gamepad.Buttons.HasFlag(GamepadButtonFlags.RightThumb);
             }
         }
 
