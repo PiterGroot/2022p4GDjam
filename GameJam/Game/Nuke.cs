@@ -124,6 +124,11 @@ namespace GameJam.Game
             {
                 if (tile.graphic != 'W' && tile.graphic != '#')
                 {
+                    if (tile.graphic == ',')
+                    {
+                        new Powerup(gc, new Vector2(tile.rectangle.X, tile.rectangle.Y));
+                    }
+
                     tile.sprite = gc.spriteMap.GetSprite('.');
                     tile.graphic = 'K';
 
@@ -137,6 +142,12 @@ namespace GameJam.Game
             {
                 if (tile.graphic != 'W')
                 {
+                    if (tile.graphic == ',' && GetRandomChance(5))
+                    {
+                        new Powerup(gc, new Vector2(tile.rectangle.X, tile.rectangle.Y));
+                    }
+                    System.Threading.Thread.Sleep(2);
+
                     tile.sprite = gc.spriteMap.GetSprite('.');
                     tile.graphic = 'K';
 
@@ -147,6 +158,13 @@ namespace GameJam.Game
                 }
             }
         }
+        private bool GetRandomChance(float chance)
+        {
+            float num = rnd.Next(0, 101);
+            if (num <= chance) return true;
+            else return false;
+        }
+
         private void ResetFloorTiles(Timer timer, Tile tile)
         {
             timer.Dispose();
