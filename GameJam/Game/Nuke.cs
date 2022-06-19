@@ -124,7 +124,7 @@ namespace GameJam.Game
             {
                 if (tile.graphic != 'W' && tile.graphic != '#')
                 {
-                    if (tile.graphic == ',')
+                    if (tile.graphic == ',' && GetRandomChance(40))
                     {
                         new Powerup(gc, new Vector2(tile.rectangle.X, tile.rectangle.Y));
                     }
@@ -142,10 +142,6 @@ namespace GameJam.Game
             {
                 if (tile.graphic != 'W')
                 {
-                    if (tile.graphic == ',' && GetRandomChance(5))
-                    {
-                        new Powerup(gc, new Vector2(tile.rectangle.X, tile.rectangle.Y));
-                    }
                     System.Threading.Thread.Sleep(2);
 
                     tile.sprite = gc.spriteMap.GetSprite('.');
