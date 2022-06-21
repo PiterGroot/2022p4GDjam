@@ -16,7 +16,7 @@ Controls keyboard 1v1:
  player2
  Walk = ARROW KEYS
  Powerup = DELETE
- Bomb = QUESTION
+ Bomb = ENTER
  }
  
  Controller vs keyboard player controls:
