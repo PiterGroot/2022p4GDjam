@@ -137,13 +137,13 @@ namespace GameJam
                         Console.WriteLine("BOMB placed at : " + p2Pos.x + " " + p2Pos.y);
                     }
                 }
-                else if(e.KeyCode == Keys.ShiftKey)
+            }
+            if (e.KeyCode == Keys.ShiftKey)
+            {
+                if (gc.p1freezeCount > 0 && canMoveP2)
                 {
-                    if(gc.p1freezeCount > 0 && canMoveP2)
-                    {
-                        gc.p1freezeCount--;
-                        new Freeze(gc, this, false);
-                    }
+                    gc.p1freezeCount--;
+                    new Freeze(gc, this, false);
                 }
             }
             if (canMoveP2)
@@ -175,13 +175,13 @@ namespace GameJam
                         Console.WriteLine("BOMB placed at : " + p1Pos.x + " " + p1Pos.y);
                     }
                 }
-                else if (e.KeyCode == Keys.Delete)
+            }
+            if (e.KeyCode == Keys.Delete)
+            {
+                if (gc.p2freezeCount > 0 && canMoveP1)
                 {
-                    if (gc.p2freezeCount > 0 && canMoveP1)
-                    {
-                        gc.p2freezeCount--;
-                        new Freeze(gc, this, true);
-                    }
+                    gc.p2freezeCount--;
+                    new Freeze(gc, this, true);
                 }
             }
 

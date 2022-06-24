@@ -72,15 +72,17 @@ namespace GameJam.Game
 
             playerAnimation = new Rectangle[]
                 {
-                    new Rectangle(43, 9, 16, 16),
-                    new Rectangle(60, 9, 16, 16),
-                    new Rectangle(77, 9, 16, 16)
+                    new Rectangle(43, 9, 15, 16),
+                    new Rectangle(60, 9, 15, 16),
+                    new Rectangle(77, 9, 15, 16),
+                    new Rectangle(94, 9, 15, 16)
                 };
             player1Animation = new Rectangle[]
              {
-                    new Rectangle(42, 27, 16, 16),
-                    new Rectangle(62, 27, 16, 16),
-                    new Rectangle(78, 28, 16, 16)
+                    new Rectangle(42, 27, 15, 16),
+                    new Rectangle(59, 27, 15, 16),
+                    new Rectangle(76, 27, 15, 16),
+                    new Rectangle(93, 27, 15, 16)
                };
 
 

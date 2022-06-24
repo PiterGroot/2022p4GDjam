@@ -25,7 +25,6 @@ namespace GameJam.Game
                 rectangle = new Rectangle(randomTile.rectangle.X, randomTile.rectangle.Y, 55, 55)
             };
             gc.nukeSigns.Add(nukeSign);
-
             Timer spawnTimer = new Timer();
             spawnTimer.Interval = (3500);
             spawnTimer.Tick += (sender, e) => SpawnNuke(spawnTimer, randomTile.rectangle.X, randomTile.rectangle.Y, nukeSign, gc);
@@ -36,6 +35,7 @@ namespace GameJam.Game
         {
             gc.nukeSigns.Remove(nukeSign);
             spawnTimer.Dispose();
+            AudioManager.PlaySound(Properties.Resources.explosion);
             RenderObject nuke = new RenderObject()
             {
                 frames = context.GetSingeFrameArray('Q'),
